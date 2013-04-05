@@ -1,0 +1,7 @@
+# Actualizamos el prompt si estamos en una carpeta de Git o Svn
+if [ -f ~/.git_svn_bash_prompt ]; then
+    source ~/.git_svn_bash_prompt
+fi
+
+export EDITOR=vim
+export GIT_EDITOR=vim

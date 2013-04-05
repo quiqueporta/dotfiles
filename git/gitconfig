@@ -1,0 +1,7 @@
+[user]
+	name = Quique Porta
+	email = quiqueporta@gmail.com
+[core]
+	editor = vim
+[color]
+	ui = true
