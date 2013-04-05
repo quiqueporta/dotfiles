@@ -28,6 +28,8 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-surround'
 " Minibuffer explorer.
 " Bundle 'fholgado/minibufexpl.vim'
+" Autoclose
+Bundle 'Townk/vim-autoclose'
 " Better file browser
 Bundle 'scrooloose/nerdtree'
 " Code commenter
@@ -44,8 +46,6 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'nvie/vim-flake8'
 " Zen coding
 Bundle 'mattn/zencoding-vim'
-" Git integration
-Bundle 'motemen/git-vim'
 " Tab list panel
 Bundle 'kien/tabman.vim'
 " Powerline
@@ -56,14 +56,14 @@ Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'vim-scripts/phpfolding.vim'
 " Snipmate
 Bundle 'msanders/snipmate.vim'
+" Consoles as buffers
+Bundle 'vim-scripts/Conque-Shell'
 
 " Bundles from vim-scripts repos
 
-" PLugin para symfony
+" Plugin para symfony
 Bundle 'soh335/vim-symfony'
 
-" Consoles as buffers
-Bundle 'Conque-Shell'
 " Autocompletition
 Bundle 'AutoComplPop'
 " Pending tasks list
@@ -74,7 +74,6 @@ Bundle 'pyflakes.vim'
 Bundle 'IndexedSearch'
 " XML/HTML tags navigation
 Bundle 'matchit.zip'
-Bundle 'bufexplorer.zip'
 " Gvim colorscheme
 Bundle 'Wombat'
 
@@ -102,7 +101,7 @@ set shiftwidth=4
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType yaml setlocal tabstop=2 shiftwidth=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
 " always show status bar
 set ls=2
@@ -211,6 +210,15 @@ nmap ,r :RecurGrepFast
 nmap ,wR :RecurGrep <cword><CR>
 nmap ,wr :RecurGrepFast <cword><CR>
 
+" Ignore files on fuzzy finder
+ let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+    \ 'file': '\.pyc$\|\.pyo$',
+    \ }
+
+" Que el NERDTree no muestre los .pyc
+let NERDTreeIgnore = ['\.pyc$']
+
 " run pep8+pyflakes validator
 autocmd FileType python map <buffer> ,8 :call Flake8()<CR>
 " rules to ignore (example: "E501,W293")
@@ -263,7 +271,6 @@ vnoremap > >gv
 " Autocompletado de PHP
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
-
 " Recargar automaticamente el .vimrc cuando se modifica
 "au BufWritePost .vimrc so ~/.vimrc
 
@@ -310,8 +317,8 @@ nmap <F8> <Esc>:DisablePHPFolds<cr>
 
 " Mostrar linea actual resaltada.
 set cursorline
-:hi CursorLine   cterm=NONE ctermbg=16 
-"ctermfg=white guibg=16 guifg=white
+:hi CursorLine   cterm=NONE ctermbg=233 guibg=darkred 
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 
 " Abbreviation
 " iab __ <?php echo __(''); ?><left><left><left><left><left><esc>P
@@ -320,11 +327,7 @@ set cursorline
 nmap <F9> :!python %<CR>
 imap <F9> <ESC>:!python %<CR>
 
-" Que el NERDTree no muestre los .pyc
-let NERDTreeIgnore = ['\.pyc$']
-
 " Cambiar tamaño ventanas
-
 nmap > <C-w>>
 nmap < <C-w><
 
