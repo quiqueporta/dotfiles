@@ -1,7 +1,7 @@
 install: install-vim install-bash install-git
 
 install-vim:
-	rm -rf ~/.vimrc ~/.vimrc
+	rm -rf ~/.vim ~/.vimrc
 	ln -s `pwd`/vim/vimrc ~/.vimrc
 
 install-bash:
