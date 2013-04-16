@@ -3,5 +3,9 @@
 	email = quiqueporta@gmail.com
 [core]
 	editor = vim
+	excludefiles = ~/.gitignore_global
+	autocrlf = input
 [color]
-	ui = true
+	ui = always
+[merge]
+	tool = vimdiff
