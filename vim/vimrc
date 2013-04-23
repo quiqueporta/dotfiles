@@ -57,7 +57,6 @@ if iCanHazVundle == 0
 endif
 
 
-
 " Configuraciones de los plugins
 "-----------------------------------------------------------
 
@@ -76,7 +75,7 @@ set shiftwidth=4
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-
+ 
 "-----------------------------------------------------------
 " NERDTree
 "-----------------------------------------------------------
@@ -89,11 +88,19 @@ autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "-----------------------------------------------------------
+" Powerline
+"-----------------------------------------------------------
+
+" Siempre visible la línea de estado
+set ls=2
+
+"-----------------------------------------------------------
 " Commenter
 "-----------------------------------------------------------
 
 " Parametro obligatorio
 filetype plugin on
+filetype indent on
 
 "-----------------------------------------------------------
 " Color
@@ -107,8 +114,20 @@ else
 endif
 
 "-----------------------------------------------------------
+" Busqueda
+"-----------------------------------------------------------
+
+" Busqueda incremental
+set incsearch
+" Resaltar texto buscado
+set hlsearch
+
+"-----------------------------------------------------------
 " Mapeos de teclas
 "-----------------------------------------------------------
+
+" Remapear la leader key
+let mapleader = ","
 
 " Con F2 guardamos el archivo
 imap <F2> <ESC>:w<CR>
@@ -123,3 +142,49 @@ map <F4> :NERDTreeFind<CR>
 
 " Para salir del modo INSERT
 inoremap kj <ESC>l
+
+" Seleccionar todo el texto
+map <Leader>a ggVG
+
+" Editar el .vimrc
+nmap vimrc :tabnew ~/.vimrc<CR>
+
+" Duplicar una linea
+nmap dl 0yyp
+
+" Cambiar entre ventanas
+nmap <TAB><TAB> <C-w><C-w>
+" Cambiar tamaño ventanas
+nmap > <C-w>>
+nmap < <C-w><
+
+" Cierra todas las ventanas.
+noremap <Leader>q :quit<CR>
+noremap <Leader>Q :qa!<CR>
+
+" Habilitamos el ratón
+set mouse=a
+
+"-----------------------------------------------------------
+" Varios
+"-----------------------------------------------------------
+
+" Números de línea
+set nu
+" Que el scroll se quede 4 líneas por encima del final del texto
+set scrolloff=4
+" Se vuelver a seleccionar el texto despues de identarlo
+vnoremap < <gv
+vnoremap > >gv
+" Deshabilita la creacion de backups.
+set nobackup
+set nowritebackup
+set noswapfile
+" Incrementando el nivel de UNDO
+set history=700
+set undolevels=700
+" Mostrar linea actual resaltada.
+set cursorline
+:hi CursorLine   cterm=NONE ctermbg=233 guibg=darkred 
+" Cambiar la línea resaltada, por la columna resaltada.
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
