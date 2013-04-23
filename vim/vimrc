@@ -2,14 +2,14 @@
 set nocompatible
 
 " Setting up Vundle - the vim plugin bundler
-let isVundleInstalled=1
+let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
     echo "Installing Vundle..."
     echo ""
     silent !mkdir -p ~/.vim/bundle
     silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let isVundleInstalled=0
+    let iCanHazVundle=0
 endif
 
 " required for vundle
@@ -22,10 +22,104 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
+" ---------------
+" GIT
+" ---------------
+
+" Navegador de archivos NEDTree
+Bundle 'scrooloose/nerdtree'
+
+" Powerline - Barra inferior mejorada
+Bundle 'Lokaltog/vim-powerline'
+
+" Surround - Permite cambiar los caracteres o tagas que rodean un texto.
+Bundle 'tpope/vim-surround'
+
+" Autoclose - Cierra automaticamente los caracteres
+Bundle 'Townk/vim-autoclose'
+
+" Commenter - Permite comentar las líneas de código
+Bundle 'scrooloose/nerdcommenter'
+
+" Color
+Bundle 'fisadev/fisa-vim-colorscheme'
+
+" ---------------
+" OTROS
+" ---------------
+
+
 " Installing plugins the first time
-if isVundleInstalled == 0
+if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
     echo ""
     :BundleInstall
 endif
 
+
+
+" Configuraciones de los plugins
+"-----------------------------------------------------------
+
+"-----------------------------------------------------------
+" Espacios y Tabulaciones
+"-----------------------------------------------------------
+
+"Mostrar los espacios y tabuladores
+set listchars=tab:▸\ ,trail:⋅
+
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+
+"-----------------------------------------------------------
+" NERDTree
+"-----------------------------------------------------------
+
+" Abre automaticamente el NERDTree cuando entras al vim si no especificaste
+" un archivo.
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" Cerrar el vim si la última ventana que queda abierta es la de NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"-----------------------------------------------------------
+" Commenter
+"-----------------------------------------------------------
+
+" Parametro obligatorio
+filetype plugin on
+
+"-----------------------------------------------------------
+" Color
+"-----------------------------------------------------------
+
+if &term =~? 'mlterm\|xterm\|screen-256'
+    let &t_Co = 256
+    colorscheme fisa
+else
+    colorscheme delek
+endif
+
+"-----------------------------------------------------------
+" Mapeos de teclas
+"-----------------------------------------------------------
+
+" Con F2 guardamos el archivo
+imap <F2> <ESC>:w<CR>
+nmap <F2> :w<CR>
+
+" Mapeo para abrir el NERDTree
+map <F3> :NERDTreeToggle<CR>
+
+" Mapeo para encontrar un archivo abierto en el NERDTree
+map <F4> :NERDTreeFind<CR>
+
+
+" Para salir del modo INSERT
+inoremap kj <ESC>l
