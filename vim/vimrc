@@ -23,7 +23,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " ---------------
-" GIT
+" Vundles de GIT
 " ---------------
 
 " Navegador de archivos NEDTree
@@ -42,11 +42,13 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'scrooloose/nerdcommenter'
 
 " Color
-Bundle 'fisadev/fisa-vim-colorscheme'
+"Bundle 'fisadev/fisa-vim-colorscheme'
 
 " ---------------
 " OTROS
 " ---------------
+
+Bundle 'wombat256.vim'
 
 
 " Installing plugins the first time
@@ -108,7 +110,7 @@ filetype indent on
 
 if &term =~? 'mlterm\|xterm\|screen-256'
     let &t_Co = 256
-    colorscheme fisa
+    colorscheme wombat256mod
 else
     colorscheme delek
 endif
@@ -139,7 +141,6 @@ map <F3> :NERDTreeToggle<CR>
 " Mapeo para encontrar un archivo abierto en el NERDTree
 map <F4> :NERDTreeFind<CR>
 
-
 " Para salir del modo INSERT
 inoremap kj <ESC>l
 
@@ -154,9 +155,16 @@ nmap dl 0yyp
 
 " Cambiar entre ventanas
 nmap <TAB><TAB> <C-w><C-w>
+
 " Cambiar tamaño ventanas
 nmap > <C-w>>
 nmap < <C-w><
+
+" Cambio entre TABS
+map tn :tabn<CR>
+map tp :tabp<CR>
+map tm :tabm<CR>
+map tt :tabnew
 
 " Cierra todas las ventanas.
 noremap <Leader>q :quit<CR>
