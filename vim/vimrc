@@ -41,14 +41,29 @@ Bundle 'Townk/vim-autoclose'
 " Commenter - Permite comentar las líneas de código
 Bundle 'scrooloose/nerdcommenter'
 
+" Fuzzy Finder - Buscar archivos
+Bundle 'kien/ctrlp.vim'
+
+" Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
+Bundle 'majutsushi/tagbar'
+" Mejora el tagbar para PHP
+Bundle 'techlivezheng/tagbar-phpctags'
+
+" Zen Codding - Creación rápida de HTML y CSS
+Bundle 'mattn/zencoding-vim'
+
+" Snipmate - Snnipets de código para todos los lenguajes
+Bundle 'msanders/snipmate.vim'
+
 " Color
-"Bundle 'fisadev/fisa-vim-colorscheme'
+Bundle 'fisadev/fisa-vim-colorscheme'
 
 " ---------------
 " OTROS
 " ---------------
 
-Bundle 'wombat256.vim'
+" Autocompletado mejorado
+Bundle 'AutoComplPop'
 
 
 " Installing plugins the first time
@@ -84,7 +99,7 @@ autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
 
 " Abre automaticamente el NERDTree cuando entras al vim si no especificaste
 " un archivo.
-autocmd vimenter * if !argc() | NERDTree | endif
+"autocmd vimenter * if !argc() | NERDTree | endif
 
 " Cerrar el vim si la última ventana que queda abierta es la de NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -105,12 +120,70 @@ filetype plugin on
 filetype indent on
 
 "-----------------------------------------------------------
+" Fuzzy Finder
+"-----------------------------------------------------------
+
+let g:ctrlp_map = ',e'
+nmap ,b :CtrlPBuffer<CR>
+nmap ,f :CtrlPLine<CR>
+nmap ,m :CtrlPMRUFiles<CR>
+
+" Funcion para buscar por la palabra que se le pase
+function! CtrlPWithSearchText(search_text, ctrlp_command_end)
+    execute ':CtrlP' . a:ctrlp_command_end
+    call feedkeys(a:search_text)
+endfunction
+
+" Busqueda de palabras
+" Busca la palabra en el buffer
+nmap ,wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
+" Busca la palabra en el Archivo
+nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
+" Busca la palabra en el buffer
+nmap ,d ,wb
+" Busca la palabra como nombre de archivo
+nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
+nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
+"
+" Que no cambie el working directory
+let g:ctrlp_working_path_mode = 0
+
+" Ignorar estos archivos
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+    \ 'file': '\.pyc$\|\.pyo$',
+    \ }
+
+"-----------------------------------------------------------
+" Tagbar
+"-----------------------------------------------------------
+" Le indicamos donde esta el ctags
+let g:tagbar_phpctags_bin='/usr/bin/ctags'
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_foldlevel = 0
+
+" Busqueda en todo los ambitos
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_NamespaceSearch = 2
+let OmniCpp_DisplayMode = 1
+let OmniCpp_ShowScopeInAbbr = 0
+let OmniCpp_ShowPrototypeInAbbr = 1
+let OmniCpp_ShowAccess = 1
+" Comportamiento del Autocompletado
+let OmniCpp_MayCompleteDot = 0
+let OmniCpp_MayCompleteArrow = 0
+let OmniCpp_MayCompleteScope = 0
+
+let OmniCpp_SelectFirstItem = 0
+
+"-----------------------------------------------------------
 " Color
 "-----------------------------------------------------------
 
 if &term =~? 'mlterm\|xterm\|screen-256'
     let &t_Co = 256
-    colorscheme wombat256mod
+    colorscheme fisa
 else
     colorscheme delek
 endif
@@ -131,15 +204,22 @@ set hlsearch
 " Remapear la leader key
 let mapleader = ","
 
-" Con F2 guardamos el archivo
+" Guardamos el archivo
 imap <F2> <ESC>:w<CR>
 nmap <F2> :w<CR>
 
-" Mapeo para abrir el NERDTree
+" Abre o cierra el NERDTree
 map <F3> :NERDTreeToggle<CR>
 
-" Mapeo para encontrar un archivo abierto en el NERDTree
+" Encuentra un archivo abierto en el NERDTree
 map <F4> :NERDTreeFind<CR>
+
+" Abre o cierra el Tagbar
+map <F5> :TagbarToggle<CR>
+
+" Generar y asignar CTAGS
+nmap <F9> :!ctags -R --languages=php --exclude=.svn --tag-relative=yes <CR>
+au BufWritePost *.php silent! !ctags -R --languages=php --exclude=.svn --tag-relative=yes &
 
 " Para salir del modo INSERT
 inoremap kj <ESC>l
@@ -170,6 +250,12 @@ map tt :tabnew
 noremap <Leader>q :quit<CR>
 noremap <Leader>Q :qa!<CR>
 
+" Abrir el autocompletado
+imap <C-J> <C-X><C-O>
+
+" Ir a la definición de una clase, emtodo, etc..
+nmap gd <c-w><c-]>
+
 " Habilitamos el ratón
 set mouse=a
 
@@ -196,3 +282,20 @@ set cursorline
 :hi CursorLine   cterm=NONE ctermbg=233 guibg=darkred 
 " Cambiar la línea resaltada, por la columna resaltada.
 :nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+" Busqueda Recursiva con grep
+command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
+command! -nargs=1 RecurGrepFast exec 'lgrep! <q-args> ./**/*.*' | lopen
+nmap ,R :RecurGrep 
+nmap ,r :RecurGrepFast 
+nmap ,wR :RecurGrep <cword><CR>
+nmap ,wr :RecurGrepFast <cword><CR>
+
+set wildmode=list:longest
+
+" Autocompletado para PHP
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+" CTAGS
+set tags=tags
+set tags+=/usr/lib/symfony/1.4.20/tags
