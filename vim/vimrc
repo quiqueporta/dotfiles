@@ -217,6 +217,9 @@ map <F4> :NERDTreeFind<CR>
 " Abre o cierra el Tagbar
 map <F5> :TagbarToggle<CR>
 
+" Limpiar la cache de symfony
+nmap <F8> :!./symfony cc<CR>
+
 " Generar y asignar CTAGS
 nmap <F9> :!ctags -R --languages=php --exclude=.svn --tag-relative=yes <CR>
 au BufWritePost *.php silent! !ctags -R --languages=php --exclude=.svn --tag-relative=yes &
