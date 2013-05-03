@@ -55,6 +55,9 @@ Bundle 'mattn/zencoding-vim'
 " Snipmate - Snnipets de código para todos los lenguajes
 Bundle 'msanders/snipmate.vim'
 
+" Autoindent para YAML
+Bundle 'avakhov/vim-yaml'
+
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
 
@@ -91,7 +94,6 @@ set shiftwidth=4
 
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
  
 "-----------------------------------------------------------
 " NERDTree
