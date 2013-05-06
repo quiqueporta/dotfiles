@@ -55,8 +55,15 @@ Bundle 'mattn/zencoding-vim'
 " Snipmate - Snnipets de código para todos los lenguajes
 Bundle 'msanders/snipmate.vim'
 
-" Autoindent para YAML
-Bundle 'avakhov/vim-yaml'
+" ArgumentRewrap - Descompone un listado de argumentos en lineas
+Bundle 'jakobwesthoff/argumentrewrap'
+
+" Vim-easymotion - Permite desplazarse por las palabras más rapido
+" <leader><leader>w, <leader><leader>f{char}
+Bundle 'Lokaltog/vim-easymotion'
+
+" Syntastic - Comprueba la sintaxis del codigo
+Bundle 'scrooloose/syntastic'
 
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
@@ -146,9 +153,9 @@ nmap ,d ,wb
 " Busca la palabra como nombre de archivo
 nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
 nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-"
+
 " Que no cambie el working directory
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_puth_mode = 0
 
 " Ignorar estos archivos
 let g:ctrlp_custom_ignore = {
@@ -224,7 +231,7 @@ nmap <F8> :!./symfony cc<CR>
 
 " Generar y asignar CTAGS
 nmap <F9> :!ctags -R --languages=php --exclude=.svn --tag-relative=yes <CR>
-au BufWritePost *.php silent! !ctags -R --languages=php --exclude=.svn --tag-relative=yes &
+"au BufWritePost *.php silent! !ctags -R --languages=php --exclude=.svn --tag-relative=yes &
 
 " Para salir del modo INSERT
 inoremap kj <ESC>l
@@ -263,6 +270,13 @@ nmap gd <c-w><c-]>
 
 " Habilitamos el ratón
 set mouse=a
+
+" Desglosar en líneas los parametros de una función.
+nnoremap <silent> <leader>s :call argumentrewrap#RewrapArguments()<CR>
+
+" Para que mueva linea a linea aunque tenga activado el warp line 
+nnoremap j gj
+nnoremap k gk
 
 "-----------------------------------------------------------
 " Varios
