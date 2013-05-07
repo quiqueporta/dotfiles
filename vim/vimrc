@@ -287,6 +287,11 @@ nnoremap k gk
 " Varios
 "-----------------------------------------------------------
 
+" Para GVim
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+
 " Números de línea
 set nu
 " Que el scroll se quede 4 líneas por encima del final del texto
