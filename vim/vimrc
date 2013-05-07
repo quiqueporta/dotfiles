@@ -67,6 +67,7 @@ Bundle 'scrooloose/syntastic'
 
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
+Bundle 'sickill/vim-monokai'
 
 " ---------------
 " OTROS
@@ -98,6 +99,8 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+
+syntax enable
 
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
@@ -190,11 +193,13 @@ let OmniCpp_SelectFirstItem = 0
 " Color
 "-----------------------------------------------------------
 
+set background=dark
+
 if &term =~? 'mlterm\|xterm\|screen-256'
     let &t_Co = 256
-    colorscheme fisa
+    colorscheme Monokai
 else
-    colorscheme delek
+    colorscheme Monokai
 endif
 
 "-----------------------------------------------------------
@@ -298,9 +303,9 @@ set history=700
 set undolevels=700
 " Mostrar linea actual resaltada.
 set cursorline
-:hi CursorLine   cterm=NONE ctermbg=233 guibg=darkred 
+":hi CursorLine   cterm=NONE ctermbg=233 guibg=grey 
 " Cambiar la línea resaltada, por la columna resaltada.
-:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+:nnoremap <C-Space> :set cursorline! cursorcolumn!<CR>
 
 " Busqueda Recursiva con grep
 command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
