@@ -155,7 +155,7 @@ nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
 nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
 
 " Que no cambie el working directory
-let g:ctrlp_working_puth_mode = 0
+let g:ctrlp_working_path_mode = 0
 
 " Ignorar estos archivos
 let g:ctrlp_custom_ignore = {
