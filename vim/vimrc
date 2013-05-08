@@ -47,7 +47,7 @@ Bundle 'kien/ctrlp.vim'
 " Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
 Bundle 'majutsushi/tagbar'
 " Mejora el tagbar para PHP
-Bundle 'techlivezheng/tagbar-phpctags'
+Bundle 'quiqueporta/tagbar-phpctags'
 
 " Zen Codding - Creación rápida de HTML y CSS
 Bundle 'mattn/zencoding-vim'
@@ -170,10 +170,11 @@ let g:ctrlp_custom_ignore = {
 " Tagbar
 "-----------------------------------------------------------
 " Le indicamos donde esta el ctags
-let g:tagbar_phpctags_bin='/usr/bin/ctags'
+let g:tagbar_phpctags_bin='/usr/bin/ctags-exuberant'
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 0
+
 
 " Busqueda en todo los ambitos
 let OmniCpp_GlobalScopeSearch = 1
@@ -282,12 +283,6 @@ nnoremap <silent> <leader>s :call argumentrewrap#RewrapArguments()<CR>
 " Para que mueva linea a linea aunque tenga activado el warp line 
 nnoremap j gj
 nnoremap k gk
-
-" Para copiar y pegar desde un buffer
-nnoremap yy "byy
-vnoremap y "by
-nnoremap p "bp
-nnoremap P "bP
 
 "-----------------------------------------------------------
 " Varios
