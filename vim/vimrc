@@ -65,6 +65,9 @@ Bundle 'Lokaltog/vim-easymotion'
 " Syntastic - Comprueba la sintaxis del codigo
 Bundle 'scrooloose/syntastic'
 
+" Autoindent para PHP
+Bundle '2072/PHP-Indenting-for-VIm'
+
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'sickill/vim-monokai'
