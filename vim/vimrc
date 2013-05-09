@@ -308,8 +308,14 @@ set nobackup
 set nowritebackup
 set noswapfile
 " Incrementando el nivel de UNDO
+silent !mkdir -p ~/.vim/undodir
+
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 set history=700
-set undolevels=700
+
 " Mostrar linea actual resaltada.
 set cursorline
 ":hi CursorLine   cterm=NONE ctermbg=233 guibg=grey 
