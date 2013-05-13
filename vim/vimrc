@@ -178,6 +178,13 @@ let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 0
 
+"-----------------------------------------------------------
+" Autocompletion
+"-----------------------------------------------------------
+" Cerrado automatico del Autocompletions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+highlight Pmenu ctermbg=4 guibg=LightGray
 
 " Busqueda en todo los ambitos
 let OmniCpp_GlobalScopeSearch = 1
