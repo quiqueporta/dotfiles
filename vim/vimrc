@@ -117,7 +117,7 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 "autocmd vimenter * if !argc() | NERDTree | endif
 
 " Cerrar el vim si la última ventana que queda abierta es la de NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "-----------------------------------------------------------
 " Powerline
