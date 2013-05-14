@@ -215,3 +215,17 @@ snippet fun
 # $... = array (...)
 snippet array
 	$${1:arrayName} = array('${2}' => ${3});${4}
+
+# Symfony 1.4
+snippet execute
+	/**
+	 * Executes $2 action
+	 *
+	 * @param sfWebRequest $request A request object
+	 * @author `g:snips_author`
+	 **/
+	${1:public }function execute${2:ActionName}(sfWebRequest $request)
+	{
+		${3:// code...}
+	}
+
