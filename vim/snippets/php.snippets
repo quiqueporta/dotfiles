@@ -1,9 +1,10 @@
 snippet php
-	<?php
-	${1}
-	?>
+	<?php ${1} ?>
 snippet ec
-	echo "${1:string}"${2};
+	echo ${1:string}${2};
+snippet debug
+	var_dump (${1:variable});
+	exit();${2}
 snippet inc
 	include '${1:file}';${2}
 snippet inc1
