@@ -68,6 +68,9 @@ Bundle 'scrooloose/syntastic'
 " Autoindent para PHP
 Bundle '2072/PHP-Indenting-for-VIm'
 
+" Multiple cursors
+Bundle 'terryma/vim-multiple-cursors'
+
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'sickill/vim-monokai'
