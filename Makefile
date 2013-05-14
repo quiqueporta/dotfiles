@@ -2,7 +2,7 @@ install: install-vim install-bash install-git
 
 install-vim:
 	rm -rf ~/.vim ~/.vimrc
-	mkdir -p ~/.vim/snippets
+	mkdir ~/.vim
 	ln -s `pwd`/vim/vimrc ~/.vimrc
 	ln -s `pwd`/vim/snippets ~/.vim/snippets
 
