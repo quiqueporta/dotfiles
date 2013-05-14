@@ -120,6 +120,12 @@ autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "-----------------------------------------------------------
+" Snipmate
+"-----------------------------------------------------------
+let g:snippets_dir = '~/.vim/snippets/'
+let g:snips_author = 'Quique Porta'
+
+"-----------------------------------------------------------
 " Powerline
 "-----------------------------------------------------------
 
