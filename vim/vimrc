@@ -74,6 +74,9 @@ Bundle 'terryma/vim-multiple-cursors'
 " Gitgutter - Muestra a la izquierda que lineas han cambiado
 Bundle 'airblade/vim-gitgutter'
 
+"Tabman - listado de tabs
+Bundle 'kien/tabman.vim'
+
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'sickill/vim-monokai'
@@ -217,6 +220,12 @@ let OmniCpp_SelectFirstItem = 0
 "-----------------------------------------------------------
 map <silent><F10> :GitGutterToggle<CR>
 highlight SignColumn guibg=#272822
+
+"-----------------------------------------------------------
+" Tabman
+"-----------------------------------------------------------
+let g:tabman_toggle = 'tl'
+let g:tabman_focus  = 'tf'
 
 "-----------------------------------------------------------
 " Color
