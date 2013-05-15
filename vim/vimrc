@@ -71,6 +71,9 @@ Bundle '2072/PHP-Indenting-for-VIm'
 " Multiple cursors
 Bundle 'terryma/vim-multiple-cursors'
 
+" Gitgutter - Muestra a la izquierda que lineas han cambiado
+Bundle 'airblade/vim-gitgutter'
+
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'sickill/vim-monokai'
@@ -210,6 +213,12 @@ let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem = 0
 
 "-----------------------------------------------------------
+" Gitgutter
+"-----------------------------------------------------------
+map <silent><F10> :GitGutterToggle<CR>
+highlight SignColumn guibg=#272822
+
+"-----------------------------------------------------------
 " Color
 "-----------------------------------------------------------
 
@@ -308,7 +317,7 @@ nnoremap k gk
 "-----------------------------------------------------------
 
 " Para GVim
-set guioptions-=m  "remove menu bar
+"set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 
@@ -324,6 +333,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 " Incrementando el nivel de UNDO
+silent !rm -r ~/.vim/undodir/*
 silent !mkdir -p ~/.vim/undodir
 
 set undodir=~/.vim/undodir
