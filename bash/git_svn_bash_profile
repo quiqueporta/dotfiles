@@ -129,9 +129,18 @@ function set_bash_prompt () {
   else
     BRANCH=''
   fi
+
+  # set the VENV variable based on whether we are working in
+  # an active virtualenv environment
+  if [ -n "$VIRTUAL_ENV" ] ; then
+    VENV="(`basename \"$VIRTUAL_ENV\"`) "
+  else
+    VENV=""
+  fi
+  
   
   # Set the bash prompt variable.
-  PS1="\u@\h \w ${BRANCH}${PROMPT_SYMBOL} "
+  PS1="$VENV\u@\h \w ${BRANCH}${PROMPT_SYMBOL} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
