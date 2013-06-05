@@ -140,7 +140,7 @@ function set_bash_prompt () {
   
   
   # Set the bash prompt variable.
-  PS1="[\w]\n${YELLOW}$VENV${COLOR_NONE}${LIGHT_GRAY}\u@\h${COLOR_NONE} ${BRANCH}${PROMPT_SYMBOL} "
+  PS1="${YELLOW}$VENV${COLOR_NONE}${LIGHT_GRAY}\u@\h \w${COLOR_NONE} ${BRANCH}${PROMPT_SYMBOL} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
