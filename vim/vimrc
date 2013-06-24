@@ -46,6 +46,7 @@ Bundle 'kien/ctrlp.vim'
 
 " Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
 Bundle 'majutsushi/tagbar'
+
 " Mejora el tagbar para PHP
 Bundle 'quiqueporta/tagbar-phpctags'
 
@@ -59,7 +60,6 @@ Bundle 'msanders/snipmate.vim'
 Bundle 'jakobwesthoff/argumentrewrap'
 
 " Vim-easymotion - Permite desplazarse por las palabras más rapido
-" <leader><leader>w, <leader><leader>f{char}
 Bundle 'Lokaltog/vim-easymotion'
 
 " Syntastic - Comprueba la sintaxis del codigo
@@ -170,8 +170,6 @@ endfunction
 nmap ,wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
 " Busca la palabra en el Archivo
 nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-" Busca la palabra en el buffer
-nmap ,d ,wb
 " Busca la palabra como nombre de archivo
 nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
 nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>

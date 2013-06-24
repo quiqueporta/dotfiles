@@ -33,6 +33,10 @@ My dotfiles for bash, vim, git, etc ...
 
 In Visual Mode select text and press `S<p class="important">`
 
+#### Multiple Cursors
+
+`<C-n>` : Highlights the current word under the cursor and pressing it again finds the next ocurrence.
+
 #### Comment
 
 `<leader>cc` : Comment the current line
