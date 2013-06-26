@@ -7,8 +7,24 @@ My dotfiles for bash, vim, git, etc ...
 
  make install
 
+### Requeriments for VIM Plugins
 
-### Shorcuts
+#### Syntastic
+
+##### PHPMD
+
+ `
+ pear channel-discover pear.phpmd.org
+
+ pear channel-discover pear.pdepend.org
+
+ pear install --alldeps phpmd/PHP_PMD
+ `
+##### PHPCS
+
+`apt-get install phpcs`
+
+### Shorcuts for VIM
 
 #### NERTree
 
