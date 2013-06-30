@@ -231,3 +231,5 @@ snippet execute
 		${3:// code...}
 	}
 
+snippet redirect
+	$this->redirect($this->generateUrl('${1:route_name}', array('${2:param}' => '${3:value}')));${4}
