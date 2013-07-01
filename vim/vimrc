@@ -87,9 +87,6 @@ Bundle 'sickill/vim-monokai'
 
 " Autocompletado mejorado
 Bundle 'AutoComplPop'
-" automatically close autocompletion window
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 
 " Installing plugins the first time
