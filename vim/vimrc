@@ -81,12 +81,11 @@ Bundle 'kien/tabman.vim'
 Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'sickill/vim-monokai'
 
-" ---------------
-" OTROS
-" ---------------
-
 " Autocompletado mejorado
 Bundle 'AutoComplPop'
+
+" Crear nuevos tags al guardar el archivo
+Bundle 'AutoTag'
 
 
 " Installing plugins the first time
