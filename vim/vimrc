@@ -107,6 +107,7 @@ endif
 "-----------------------------------------------------------
 
 "Mostrar los espacios y tabuladores
+set list
 set listchars=tab:▸\ ,trail:⋅
 
 set expandtab
