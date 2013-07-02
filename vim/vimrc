@@ -102,6 +102,9 @@ endif
 " Configuraciones de los plugins
 "-----------------------------------------------------------
 
+" Fix to let ESC work as espected with Autoclose plugin
+let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
+
 "-----------------------------------------------------------
 " Espacios y Tabulaciones
 "-----------------------------------------------------------
