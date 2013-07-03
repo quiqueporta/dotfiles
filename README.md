@@ -105,10 +105,15 @@ In Visual Mode select text and press `S<p class="important">`
 
 `
 foo(
+
         bar,
+
         baz,
+
         blub
+
    );
+
 `
 
 #### Easy Motion
@@ -126,10 +131,11 @@ foo(
 
 #### YankRing
 
-`<F11>` : Open/Close YankRing)
+`<F11>` : Open/Close YankRing
 
 #### Move lines & blocks
 
 `<A-j>` : Moves down current line or selected block
+
 `<A-k>` : Moves up current line or selected block
 
