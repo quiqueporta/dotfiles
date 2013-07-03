@@ -50,7 +50,7 @@ In Visual Mode select text and press `S<p class="important">`
 
 #### Multiple Cursors
 
-`<C-n>` : Highlights the current word under the cursor and pressing it again finds the next ocurrence.
+`<A-n>` : Highlights the current word under the cursor and pressing it again finds the next ocurrence.
 
 #### Comment
 
@@ -123,3 +123,13 @@ foo(
 #### Gitgutter
 
 `<F10>` : Open/Close Git gutter
+
+#### YankRing
+
+`<F11>` : Open/Close YankRing)
+
+#### Move lines & blocks
+
+`<A-j>` : Moves down current line or selected block
+`<A-k>` : Moves up current line or selected block
+
