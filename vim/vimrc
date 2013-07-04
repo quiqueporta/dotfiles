@@ -122,7 +122,7 @@ syntax on
 
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
- 
+
 "-----------------------------------------------------------
 " NERDTree
 "-----------------------------------------------------------
@@ -324,7 +324,7 @@ set mouse=a
 " Desglosar en líneas los parametros de una función.
 nnoremap <silent> <leader>s :call argumentrewrap#RewrapArguments()<CR>
 
-" Para que mueva linea a linea aunque tenga activado el warp line 
+" Para que mueva linea a linea aunque tenga activado el warp line
 nnoremap j gj
 nnoremap k gk
 
@@ -368,15 +368,15 @@ set history=700
 
 " Mostrar linea actual resaltada.
 set cursorline
-":hi CursorLine   cterm=NONE ctermbg=233 guibg=grey 
+":hi CursorLine   cterm=NONE ctermbg=233 guibg=grey
 " Cambiar la línea resaltada, por la columna resaltada.
 :nnoremap <C-Space> :set cursorline! cursorcolumn!<CR>
 
 " Busqueda Recursiva con grep
 command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
 command! -nargs=1 RecurGrepFast exec 'lgrep! <q-args> ./**/*.*' | lopen
-nmap ,R :RecurGrep 
-nmap ,r :RecurGrepFast 
+nmap ,R :RecurGrep
+nmap ,r :RecurGrepFast
 nmap ,wR :RecurGrep <cword><CR>
 nmap ,wr :RecurGrepFast <cword><CR>
 
