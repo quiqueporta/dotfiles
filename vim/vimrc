@@ -120,8 +120,9 @@ set shiftwidth=4
 
 syntax on
 
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType html setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2
  
 "-----------------------------------------------------------
 " NERDTree
