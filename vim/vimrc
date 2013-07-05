@@ -90,6 +90,7 @@ Bundle 'AutoTag'
 " Mejoras para copiar y pegar
 Bundle 'YankRing.vim'
 
+Bundle 'mikehaertl/pdv-standalone'
 
 " Installing plugins the first time
 if iCanHazVundle == 0
@@ -156,6 +157,19 @@ set ls=2
 " Parametro obligatorio
 filetype plugin on
 filetype indent on
+
+
+"-----------------------------------------------------------
+" PDV Documentor for VIM
+"-----------------------------------------------------------
+nnoremap <A-d> :call PhpDocSingle()<CR>
+vnoremap <A-d> :call PhpDocRange()<CR>
+let g:pdv_cfg_Package = 'pyndoo_package'
+let g:pdv_cfg_Version = '1.0'
+let g:pdv_cfg_Author = 'Quique Porta <quiqueporta@gmail.com>'
+let g:pdv_cfg_Copyright = 'Copyright 2011 by Pyndoo <info@pyndoo.com>'
+let g:pdv_cfg_License = 'Provided under the GPL (http://www.gnu.org/copyleft/gpl.html)'
+
 
 "-----------------------------------------------------------
 " Fuzzy Finder
