@@ -16,3 +16,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Aliases
+alias svnadd='svn st | grep ^? | cut -c9- | xargs svn add'
+alias svndel='svn st | grep ^! | cut -c9- | xargs svn del'
