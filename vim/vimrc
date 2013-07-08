@@ -407,3 +407,6 @@ set tags+=/usr/lib/symfony/1.4.20/tags
 " Mostrar de otro color a partir de la columna 80
 " let &colorcolumn=join(range(81,999),",")
 set colorcolumn=80
+
+" Quitar espacios al guardar el archivo
+nmap <F12> :%s/\s\+$//<CR>
