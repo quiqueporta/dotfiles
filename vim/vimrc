@@ -80,6 +80,7 @@ Bundle 'kien/tabman.vim'
 " Color
 Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'sickill/vim-monokai'
+Bundle 'altercation/vim-colors-solarized'
 
 " Autocompletado mejorado
 Bundle 'AutoComplPop'
