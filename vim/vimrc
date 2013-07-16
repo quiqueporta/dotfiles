@@ -23,7 +23,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " ---------------
-" Vundles de GIT
+" Bundles
 " ---------------
 
 " Navegador de archivos NEDTree
@@ -71,9 +71,6 @@ Bundle '2072/PHP-Indenting-for-VIm'
 " Multiple cursors
 Bundle 'terryma/vim-multiple-cursors'
 
-" Gitgutter - Muestra a la izquierda que lineas han cambiado
-Bundle 'airblade/vim-gitgutter'
-
 "Tabman - listado de tabs
 Bundle 'kien/tabman.vim'
 
@@ -91,6 +88,7 @@ Bundle 'AutoTag'
 " Mejoras para copiar y pegar
 Bundle 'YankRing.vim'
 
+" PHP Documentor
 Bundle 'mikehaertl/pdv-standalone'
 
 " Installing plugins the first time
@@ -237,12 +235,6 @@ let OmniCpp_MayCompleteScope = 0
 let OmniCpp_SelectFirstItem = 0
 
 "-----------------------------------------------------------
-" Gitgutter
-"-----------------------------------------------------------
-map <silent><F10> :GitGutterToggle<CR>
-highlight SignColumn guibg=#272822
-
-"-----------------------------------------------------------
 " Tabman
 "-----------------------------------------------------------
 let g:tabman_toggle = 'tl'
@@ -299,6 +291,9 @@ map <F5> :TagbarToggle<CR>
 " Abre el listado de lineas copiadas al buffer
 nnoremap <silent> <F11> :YRShow<CR>
 
+" Quitar espacios al guardar el archivo
+nmap <F12> :%s/\s\+$//<CR>
+
 " Para salir del modo INSERT
 inoremap kj <ESC>l
 
@@ -331,7 +326,7 @@ noremap <Leader>Q :qa!<CR>
 " Abrir el autocompletado
 imap <C-J> <C-X><C-O>
 
-" Ir a la definición de una clase, emtodo, etc..
+" Ir a la definición de una clase, metodo, etc..
 nmap gd <c-w><c-]>
 
 " Habilitamos el ratón
@@ -385,6 +380,7 @@ set history=700
 " Mostrar linea actual resaltada.
 set cursorline
 ":hi CursorLine   cterm=NONE ctermbg=233 guibg=grey
+
 " Cambiar la línea resaltada, por la columna resaltada.
 :nnoremap <C-Space> :set cursorline! cursorcolumn!<CR>
 
@@ -409,5 +405,3 @@ set tags+=/usr/lib/symfony/1.4.20/tags
 " let &colorcolumn=join(range(81,999),",")
 set colorcolumn=80
 
-" Quitar espacios al guardar el archivo
-nmap <F12> :%s/\s\+$//<CR>

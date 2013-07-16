@@ -124,14 +124,13 @@ foo(
 
 `tl` : Open sidebar tab list.
 
-
-#### Gitgutter
-
-`<F10>` : Open/Close Git gutter
-
 #### YankRing
 
 `<F11>` : Open/Close YankRing
+
+#### Remove Spaces
+
+`<F12>` : Remove spaces and tabs on current file
 
 #### Move lines & blocks
 
