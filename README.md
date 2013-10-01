@@ -50,7 +50,8 @@ In Visual Mode select text and press `S<p class="important">`
 
 #### Multiple Cursors
 
-`<A-n>` : Highlights the current word under the cursor and pressing it again finds the next ocurrence.
+`<C-n>` : Highlights the current word under the cursor and pressing it again finds the next ocurrence.
+`<C-p>` : Highlights the current word under the cursor and pressing it again finds the previous ocurrence.
 
 #### Comment
 
@@ -91,6 +92,10 @@ In Visual Mode select text and press `S<p class="important">`
 #### Tagbar
 
 `<F5>` : Open/Close sidebar of ctags.
+
+#### PHP Documentor
+
+`<F8>` : Create a php doc.
 
 #### ZenCoding
 
@@ -134,7 +139,7 @@ foo(
 
 #### Move lines & blocks
 
-`<A-j>` : Moves down current line or selected block
+`<C-j>` : Moves down current line or selected block
 
-`<A-k>` : Moves up current line or selected block
+`<C-k>` : Moves up current line or selected block
 
