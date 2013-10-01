@@ -32,11 +32,11 @@ Bundle 'scrooloose/nerdtree'
 " Powerline - Barra inferior mejorada
 Bundle 'Lokaltog/vim-powerline'
 
-" Surround - Permite cambiar los caracteres o tagas que rodean un texto.
+" Surround - Permite cambiar los caracteres o tags que rodean un texto.
 Bundle 'tpope/vim-surround'
 
 " Autoclose - Cierra automaticamente los caracteres
-Bundle 'Townk/vim-autoclose'
+Bundle 'AutoClose'
 
 " Commenter - Permite comentar las líneas de código
 Bundle 'scrooloose/nerdcommenter'
@@ -46,9 +46,6 @@ Bundle 'kien/ctrlp.vim'
 
 " Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
 Bundle 'majutsushi/tagbar'
-
-" Mejora el tagbar para PHP
-Bundle 'quiqueporta/tagbar-phpctags'
 
 " Zen Codding - Creación rápida de HTML y CSS
 Bundle 'mattn/zencoding-vim'
@@ -120,7 +117,7 @@ set shiftwidth=4
 
 syntax on
 
-autocmd FileType html setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType html setlocal softtabstop=4 shiftwidth=4 tabstop=4
 autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2
 
@@ -161,12 +158,12 @@ filetype indent on
 "-----------------------------------------------------------
 " PDV Documentor for VIM
 "-----------------------------------------------------------
-nnoremap <A-d> :call PhpDocSingle()<CR>
-vnoremap <A-d> :call PhpDocRange()<CR>
-let g:pdv_cfg_Package = 'pyndoo_package'
+nnoremap <F8> :call PhpDocSingle()<CR>
+vnoremap <F8> :call PhpDocRange()<CR>
+let g:pdv_cfg_Package = 'package'
 let g:pdv_cfg_Version = '1.0'
 let g:pdv_cfg_Author = 'Quique Porta <quiqueporta@gmail.com>'
-let g:pdv_cfg_Copyright = 'Copyright 2011 by Pyndoo <info@pyndoo.com>'
+let g:pdv_cfg_Copyright = 'Copyright'
 let g:pdv_cfg_License = 'Provided under the GPL (http://www.gnu.org/copyleft/gpl.html)'
 
 
@@ -243,8 +240,8 @@ let g:tabman_focus  = 'tf'
 "-----------------------------------------------------------
 " Multi cursor
 "-----------------------------------------------------------
-let g:multi_cursor_next_key='<A-n>'
-let g:multi_cursor_prev_key='<A-p>'
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
 
 "-----------------------------------------------------------
 " Color
@@ -278,6 +275,7 @@ let mapleader = ","
 " Guardamos el archivo
 imap <F2> <ESC>:w<CR>
 nmap <F2> <ESC>:w<CR>
+vmap <F2> <ESC>:w<CR>
 
 " Abre o cierra el NERDTree
 map <F3> :NERDTreeToggle<CR>
@@ -297,14 +295,11 @@ nmap <F12> :%s/\s\+$//<CR>
 " Para salir del modo INSERT
 inoremap kj <ESC>l
 
-" Seleccionar todo el texto
-map <Leader>a ggVG
-
 " Editar el .vimrc
 nmap vimrc :tabnew ~/.vimrc<CR>
 
 " Duplicar una linea
-nmap dl 0yyp
+nmap dl :t.<CR>
 
 " Cambiar entre ventanas
 nmap <TAB><TAB> <C-w><C-w>
@@ -324,7 +319,7 @@ noremap <Leader>q :quit<CR>
 noremap <Leader>Q :qa!<CR>
 
 " Abrir el autocompletado
-imap <C-J> <C-X><C-O>
+"imap <C-J> <C-X><C-O>
 
 " Ir a la definición de una clase, metodo, etc..
 nmap gd <c-w><c-]>
@@ -340,12 +335,12 @@ nnoremap j gj
 nnoremap k gk
 
 " Para mover bloques de texto y lineas.
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <C-J> :m .+1<CR>==
+nnoremap <C-K> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 "-----------------------------------------------------------
 " Varios
@@ -358,21 +353,20 @@ set guioptions-=r  "remove right-hand scroll bar
 
 " Números de línea
 set nu
+
 " Que el scroll se quede 4 líneas por encima del final del texto
-set scrolloff=4
+set scrolloff=6
+
 " Se vuelver a seleccionar el texto despues de identarlo
 vnoremap < <gv
 vnoremap > >gv
+
 " Deshabilita la creacion de backups.
 set nobackup
 set nowritebackup
 set noswapfile
-" Incrementando el nivel de UNDO
-silent !rm -r ~/.vim/undodir/*
-silent !mkdir -p ~/.vim/undodir
 
-set undodir=~/.vim/undodir
-set undofile
+" Incrementando el nivel de UNDO
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 set history=700
@@ -405,3 +399,16 @@ set tags+=/usr/lib/symfony/1.4.20/tags
 " let &colorcolumn=join(range(81,999),",")
 set colorcolumn=80
 
+
+" Folding
+set foldmethod=syntax
+set foldlevelstart=1
+
+let javaScript_fold=1         " JavaScript
+let perl_fold=1               " Perl
+let php_folding=1             " PHP
+let r_syntax_folding=1        " R
+let ruby_fold=1               " Ruby
+let sh_fold_enabled=1         " sh
+let vimsyn_folding='af'       " Vim script
+let xml_syntax_folding=1      " XML
