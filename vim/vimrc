@@ -247,6 +247,7 @@ let g:multi_cursor_prev_key='<C-p>'
 " Color
 "-----------------------------------------------------------
 
+
 set background=dark
 
 if &term =~? 'mlterm\|xterm\|screen-256'
