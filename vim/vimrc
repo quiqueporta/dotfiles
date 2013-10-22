@@ -252,9 +252,9 @@ set background=dark
 
 if &term =~? 'mlterm\|xterm\|screen-256'
     let &t_Co = 256
-    colorscheme Monokai
+    colorscheme monokai
 else
-    colorscheme Monokai
+    colorscheme monokai
 endif
 
 "-----------------------------------------------------------
