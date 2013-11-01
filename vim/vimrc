@@ -36,7 +36,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'tpope/vim-surround'
 
 " Autoclose - Cierra automaticamente los caracteres
-Bundle 'AutoClose'
+Bundle 'Townk/vim-autoclose'
 
 " Commenter - Permite comentar las líneas de código
 Bundle 'scrooloose/nerdcommenter'
@@ -81,9 +81,6 @@ Bundle 'AutoComplPop'
 
 " Crear nuevos tags al guardar el archivo
 Bundle 'AutoTag'
-
-" Mejoras para copiar y pegar
-Bundle 'YankRing.vim'
 
 " PHP Documentor
 Bundle 'mikehaertl/pdv-standalone'
@@ -296,6 +293,9 @@ nmap <F12> :%s/\s\+$//<CR>
 " Para salir del modo INSERT
 inoremap kj <ESC>l
 
+" Seleccionar todo el texto
+map <Leader>a ggVG
+
 " Editar el .vimrc
 nmap vimrc :tabnew ~/.vimrc<CR>
 
@@ -391,6 +391,10 @@ set wildmode=list:longest
 
 " Autocompletado para PHP
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " CTAGS
 set tags=tags
@@ -402,14 +406,14 @@ set colorcolumn=80
 
 
 " Folding
-set foldmethod=syntax
-set foldlevelstart=1
+"set foldmethod=syntax
+"set foldlevelstart=1
 
-let javaScript_fold=1         " JavaScript
-let perl_fold=1               " Perl
-let php_folding=1             " PHP
-let r_syntax_folding=1        " R
-let ruby_fold=1               " Ruby
-let sh_fold_enabled=1         " sh
-let vimsyn_folding='af'       " Vim script
-let xml_syntax_folding=1      " XML
+"let javaScript_fold=1         " JavaScript
+"let perl_fold=1               " Perl
+"let php_folding=1             " PHP
+"let r_syntax_folding=1        " R
+"let ruby_fold=1               " Ruby
+"let sh_fold_enabled=1         " sh
+"let vimsyn_folding='af'       " Vim script
+"let xml_syntax_folding=1      " XML

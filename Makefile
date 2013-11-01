@@ -7,9 +7,7 @@ install-vim:
 	ln -s `pwd`/vim/snippets ~/.vim/snippets
 
 install-bash:
-	rm -f ~/.bashrc
 	rm -f ~/.git_svn_bash_prompt
-	ln -s `pwd`/bash/bashrc ~/.bashrc
 	ln -s `pwd`/bash/git_svn_bash_profile ~/.git_svn_bash_prompt
 
 install-git:
