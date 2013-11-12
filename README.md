@@ -8,6 +8,7 @@ My dotfiles for bash, vim, git, etc ...
  make install
 
 ### Requeriments for VIM Plugins
+pip install --user git+git://github.com/Lokaltog/powerline
 
 #### Syntastic
 

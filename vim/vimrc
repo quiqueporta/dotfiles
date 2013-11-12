@@ -1,36 +1,41 @@
-"no vi-compatible
-set nocompatible
+" Based on:
+" https://bitbucket.org/sjl/dotfiles/src
 
-" Setting up Vundle - the vim plugin bundler
+" Instalador Vundle  ------------------------------------------------------ {{{
+
+" Instalando el gestor de plugins Vundle
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
-    echo "Installing Vundle..."
+    echo "Instalando Vundle..."
     echo ""
     silent !mkdir -p ~/.vim/bundle
     silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
     let iCanHazVundle=0
 endif
 
-" required for vundle
+" Requerido para Vundle
+set nocompatible
 filetype off
 
+" Añadimos al runtimepath el Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
+" }}}
 
-" ---------------
-" Bundles
-" ---------------
+" Listado de Plugins ------------------------------------------------------ {{{
+
+Bundle 'gmarik/vundle'
 
 " Navegador de archivos NEDTree
 Bundle 'scrooloose/nerdtree'
 
-" Powerline - Barra inferior mejorada
-Bundle 'Lokaltog/vim-powerline'
+" Powerline mejorada
+Bundle 'Lokaltog/powerline', { 'rtp': 'powerline/bindings/vim' }
+
+" Fuzzy Finder - Buscar archivos
+Bundle 'kien/ctrlp.vim'
 
 " Surround - Permite cambiar los caracteres o tags que rodean un texto.
 Bundle 'tpope/vim-surround'
@@ -41,174 +46,323 @@ Bundle 'Townk/vim-autoclose'
 " Commenter - Permite comentar las líneas de código
 Bundle 'scrooloose/nerdcommenter'
 
-" Fuzzy Finder - Buscar archivos
-Bundle 'kien/ctrlp.vim'
-
 " Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
 Bundle 'majutsushi/tagbar'
 
-" Zen Codding - Creación rápida de HTML y CSS
-Bundle 'mattn/zencoding-vim'
+" Emmet - Creación rápida de HTML y CSS
+Bundle 'mattn/emmet-vim'
 
-" Snipmate - Snnipets de código para todos los lenguajes
-Bundle 'msanders/snipmate.vim'
-
-" ArgumentRewrap - Descompone un listado de argumentos en lineas
-Bundle 'jakobwesthoff/argumentrewrap'
-
-" Vim-easymotion - Permite desplazarse por las palabras más rapido
+" Vim-easymotion - Permite desplazarse por el documento más rapido.
 Bundle 'Lokaltog/vim-easymotion'
-
-" Syntastic - Comprueba la sintaxis del codigo
-Bundle 'scrooloose/syntastic'
-
-" Autoindent para PHP
-Bundle '2072/PHP-Indenting-for-VIm'
 
 " Multiple cursors
 Bundle 'terryma/vim-multiple-cursors'
 
-"Tabman - listado de tabs
-Bundle 'kien/tabman.vim'
-
-" Color
-Bundle 'fisadev/fisa-vim-colorscheme'
-Bundle 'sickill/vim-monokai'
-Bundle 'altercation/vim-colors-solarized'
-
 " Autocompletado mejorado
 Bundle 'AutoComplPop'
 
-" Crear nuevos tags al guardar el archivo
-Bundle 'AutoTag'
+" Snippets
+Bundle 'vim-scripts/snipMate'
 
-" PHP Documentor
-Bundle 'mikehaertl/pdv-standalone'
+" Tema de colores Monokai
+Bundle 'sickill/vim-monokai'
 
-" Installing plugins the first time
+" }}}
+
+" Instalación inicial de los plugins  ------------------------------------- {{{
+
 if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
+    echo "Instalando los Plugins ..."
     echo ""
     :BundleInstall
 endif
 
+filetype plugin indent on
 
-" Configuraciones de los plugins
-"-----------------------------------------------------------
+" }}}
 
-" Fix to let ESC work as espected with Autoclose plugin
-let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
+" Opciones Básicas  ------------------------------------- {{{
 
-"-----------------------------------------------------------
-" Espacios y Tabulaciones
-"-----------------------------------------------------------
-
-"Mostrar los espacios y tabuladores
+set encoding=utf-8
+set autoindent
+set hidden
+set ttyfast
+set ruler
+set nonumber
+set colorcolumn=80
+set laststatus=2 " Mostrar siempre el statusline
+set noshowmode " Ocultar el texto del modo (e.j. -- INSERT -- debajo)
+set history=1000
+set undoreload=10000
 set list
-set listchars=tab:▸\ ,trail:⋅
+set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
+set lazyredraw " No redibujar si se está ejecutando un macro, etc ...
+set matchtime=3
+set splitbelow " Ventana nueva abajo.
+set splitright " Ventan nueva a la derecha.
+set autoread " Recargar archivo si fue modificado fuera de vim.
+set shiftround
+set title
+set linebreak
+set dictionary=/usr/share/dict/words " Listado de palabras en ingles.
+set dictionary=/usr/share/dict/spanish " Listado de palabras en español.
 
-set expandtab
-set tabstop=4
-set softtabstop=4
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" Mejor autocompletado.
+set complete=.,w,b,u,t
+set completeopt=longest,menuone,preview
+
+au VimResized * :wincmd = " Redimensionar los splits al reducir la ventana.
+
+let mapleader = "," " Remapear el leader key
+
+" Solo mostrar el current line en la ventana actual y en normal mode.
+set cursorline
+augroup cline
+    au!
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
+augroup END
+
+" Mejorando el Wildmenu
+set wildmenu
+set wildmode=list:longest
+
+" Habilitamos el ratón
+set mouse=a
+
+" Deshabilita la creacion de backups.
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Tabs, espacios, wrapping {{{
+
+set tabstop=8
 set shiftwidth=4
-
-syntax on
+set softtabstop=4
+set expandtab
+set wrap
+set formatoptions=qrn1j
 
 autocmd FileType html setlocal softtabstop=4 shiftwidth=4 tabstop=4
 autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2
+" }}}
+" Color {{{
 
-"-----------------------------------------------------------
-" NERDTree
-"-----------------------------------------------------------
+syntax on
+set background=dark
 
-" Abre automaticamente el NERDTree cuando entras al vim si no especificaste
-" un archivo.
-"autocmd vimenter * if !argc() | NERDTree | endif
+if &term =~? 'mlterm\|xterm\|screen-256'
+    let &t_Co = 256
+    colorscheme monokai
+else
+    colorscheme monokai
+endif
 
-" Cerrar el vim si la última ventana que queda abierta es la de NERDTree
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" }}}
+
+" Ocultar barras de herramientas de Gvim
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+
+" Autocompletado
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+" }}}
+
+" Remapeo de teclas  ------------------------------------------------------ {{{
+
+" Teclas de Funcion {{{
+" Help key.
+noremap  <F1> <nop>
+inoremap <F1> <nop>
+
+" Guardar Archivo
+noremap <F2> <esc>:w<cr>
+inoremap <F2> <esc>:w<cr>
+vnoremap <F2> <esc>:w<cr>
+
+" Muestra los registros,
+nnoremap <F11> <esc>:registers<cr>
+inoremap <F11> <esc>:registers<cr>
+vnoremap <F11> <esc>:registers<cr>
+
+" Quitar espacios al guardar el archivo
+noremap <F12> :%s/\s\+$//<CR>
+
+" }}}
+
+" Reemplazo del ESC.
+inoremap kj <esc>l
+
+" Cerrar un archivo
+nnoremap <leader>q <esc>:q<cr>
+
+" Man
+nnoremap M K
+
+" Mostrar/Coultar numeros de línea.
+nnoremap <leader>n :setlocal number!<cr>
+
+" Seleccionar todo el documento.
+nnoremap <leader>a ggVG
+
+" Selecciona la linea actual sin seleccionar la identación.
+nnoremap vv ^vg_
+
+" Guardar con sudo.
+cnoremap w!! w !sudo tee % >/dev/null
+
+" Duplicar una linea
+noremap dl :t.<CR>
+
+" Cambiar entre ventanas
+noremap <TAB><TAB> <C-w><C-w>
+
+" Cambiar tamaño ventanas
+noremap > <C-w>>
+noremap < <C-w><
+
+" Abrir el .vimrc para editarlo.
+nmap vimrc :tabnew ~/.vimrc<cr>
+
+" Cambiar la línea resaltada, por la columna resaltada.
+nnoremap <leader>c :set cursorline! cursorcolumn!<CR>
+
+" }}}
+
+" Busqueda y Movimiento  -------------------------------------------------- {{{
+
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+set scrolloff=6
+set sidescroll=1
+set sidescrolloff=10
+
+noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
+
+" Mantener en el medio la busqueda.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
+
+" Creando una ventana vertical.
+noremap <leader>v <C-w>v
+
+" Movimiento entre los Tabs
+map tn :tabn<cr>
+map tp :tabp<cr>
+map tm :tabm<cr>
+map tt :tabnew
+
+" Para mover bloques de texto y lineas.
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+
+" }}}
+
+"Plugins - Configuración -------------------------------------------------- {{{
+" Powerline --------------------------------------------------------------- {{{
+
+" Hace que no tarde tanto en salir del modo de Inserción.
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+inoremap kj <ESC>l
+" }}}
+" NERDTree --------------------------------------------------------------- {{{
+
+" Abrir el NERDTree
+noremap <F3> :NERDTreeToggle<cr>
+inoremap <F3> <esc>:NERDTreeToggle<cr>
+
+" Encuentra un archivo abierto en el NERDTree
+map <F4> :NERDTreeFind<CR>
+
+" Ignorando archivos a mostrar.
 let NERDTreeIgnore=['\.pyc$']
 
-"-----------------------------------------------------------
-" Snipmate
-"-----------------------------------------------------------
-let g:snippets_dir = '~/.vim/snippets/'
-let g:snips_author = 'Quique Porta'
+let NERDTreeHighlightCursorline = 1
 
-"-----------------------------------------------------------
-" Powerline
-"-----------------------------------------------------------
+" }}}
+" Ctrl-p ------------------------------------------------------------------ {{{
 
-" Siempre visible la línea de estado
-set ls=2
+let g:ctrlp_map = '<leader>e'
+noremap ,b :CtrlPBuffer<CR>
+noremap ,f :CtrlPLine<CR>
+noremap ,m :CtrlPMRUFiles<CR>
 
-"-----------------------------------------------------------
-" Commenter
-"-----------------------------------------------------------
-
-" Parametro obligatorio
-filetype plugin on
-filetype indent on
-
-
-"-----------------------------------------------------------
-" PDV Documentor for VIM
-"-----------------------------------------------------------
-nnoremap <F8> :call PhpDocSingle()<CR>
-vnoremap <F8> :call PhpDocRange()<CR>
-let g:pdv_cfg_Package = 'package'
-let g:pdv_cfg_Version = '1.0'
-let g:pdv_cfg_Author = 'Quique Porta <quiqueporta@gmail.com>'
-let g:pdv_cfg_Copyright = 'Copyright'
-let g:pdv_cfg_License = 'Provided under the GPL (http://www.gnu.org/copyleft/gpl.html)'
-
-
-"-----------------------------------------------------------
-" Fuzzy Finder
-"-----------------------------------------------------------
-
-let g:ctrlp_map = ',e'
-nmap ,b :CtrlPBuffer<CR>
-nmap ,f :CtrlPLine<CR>
-nmap ,m :CtrlPMRUFiles<CR>
-
-" Funcion para buscar por la palabra que se le pase
+"" Funcion para buscar por la palabra que se le pase
 function! CtrlPWithSearchText(search_text, ctrlp_command_end)
     execute ':CtrlP' . a:ctrlp_command_end
     call feedkeys(a:search_text)
 endfunction
 
-" Busqueda de palabras
-" Busca la palabra en el buffer
-nmap ,wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
-" Busca la palabra en el Archivo
-nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-" Busca la palabra como nombre de archivo
-nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
+"" Busqueda de palabras
+"" Busca la palabra en el buffer
+noremap ,wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
+"" Busca la palabra en el Archivo
+noremap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
+"" Busca la palabra como nombre de archivo
+noremap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
+noremap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
 
-" Que no cambie el working directory
+"" Que no cambie el working directory
 let g:ctrlp_working_path_mode = 0
 
-" Ignorar estos archivos
+"" Ignorar estos archivos
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
     \ 'file': '\.pyc$\|\.pyo$',
     \ }
+let ctrlp_filter_greps = "".
+    \ "egrep -iv '\\.(" .
+    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ ")$' | " .
+    \ "egrep -v '^(\\./)?(" .
+    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
+    \ ")'"
 
-"-----------------------------------------------------------
-" Tagbar
-"-----------------------------------------------------------
-" Le indicamos donde esta el ctags
-let g:tagbar_phpctags_bin='/usr/bin/ctags-exuberant'
+" }}}
+" Tagbar ------------------------------------------------------------------ {{{
+map <F5> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_foldlevel = 0
-
-"-----------------------------------------------------------
-" Autocompletion
-"-----------------------------------------------------------
+" }}}
+" Multi Cursor ------------------------------------------------------------ {{{
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+" }}}
+" Autocompletion----------------------------------------------------------- {{{
 " Cerrado automatico del Autocompletions
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
@@ -228,192 +382,80 @@ let OmniCpp_MayCompleteScope = 0
 
 let OmniCpp_SelectFirstItem = 0
 
-"-----------------------------------------------------------
-" Tabman
-"-----------------------------------------------------------
-let g:tabman_toggle = 'tl'
-let g:tabman_focus  = 'tf'
-
-"-----------------------------------------------------------
-" Multi cursor
-"-----------------------------------------------------------
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-
-"-----------------------------------------------------------
-" Color
-"-----------------------------------------------------------
-
-
-set background=dark
-
-if &term =~? 'mlterm\|xterm\|screen-256'
-    let &t_Co = 256
-    colorscheme monokai
-else
-    colorscheme monokai
-endif
-
-"-----------------------------------------------------------
-" Busqueda
-"-----------------------------------------------------------
-
-" Busqueda incremental
-set incsearch
-" Resaltar texto buscado
-set hlsearch
-
-"-----------------------------------------------------------
-" Mapeos de teclas
-"-----------------------------------------------------------
-
-" Remapear la leader key
-let mapleader = ","
-
-" Guardamos el archivo
-imap <F2> <ESC>:w<CR>
-nmap <F2> <ESC>:w<CR>
-vmap <F2> <ESC>:w<CR>
-
-" Abre o cierra el NERDTree
-map <F3> :NERDTreeToggle<CR>
-
-" Encuentra un archivo abierto en el NERDTree
-map <F4> :NERDTreeFind<CR>
-
-" Abre o cierra el Tagbar
-map <F5> :TagbarToggle<CR>
-
-" Abre el listado de lineas copiadas al buffer
-nnoremap <silent> <F11> :YRShow<CR>
-
-" Quitar espacios al guardar el archivo
-nmap <F12> :%s/\s\+$//<CR>
-
-" Para salir del modo INSERT
-inoremap kj <ESC>l
-
-" Seleccionar todo el texto
-map <Leader>a ggVG
-
-" Editar el .vimrc
-nmap vimrc :tabnew ~/.vimrc<CR>
-
-" Duplicar una linea
-nmap dl :t.<CR>
-
-" Cambiar entre ventanas
-nmap <TAB><TAB> <C-w><C-w>
-
-" Cambiar tamaño ventanas
-nmap > <C-w>>
-nmap < <C-w><
-
-" Cambio entre TABS
-map tn :tabn<CR>
-map tp :tabp<CR>
-map tm :tabm<CR>
-map tt :tabnew
-
-" Cierra todas las ventanas.
-noremap <Leader>q :quit<CR>
-noremap <Leader>Q :qa!<CR>
-
 " Abrir el autocompletado
-"imap <C-J> <C-X><C-O>
+imap <C-J> <C-X><C-O>
 
-" Ir a la definición de una clase, metodo, etc..
-nmap gd <c-w><c-]>
+" }}}
+" }}}
 
-" Habilitamos el ratón
-set mouse=a
+" Folding ----------------------------------------------------------------- {{{
 
-" Desglosar en líneas los parametros de una función.
-nnoremap <silent> <leader>s :call argumentrewrap#RewrapArguments()<CR>
+set foldlevelstart=0
 
-" Para que mueva linea a linea aunque tenga activado el warp line
-nnoremap j gj
-nnoremap k gk
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
 
-" Para mover bloques de texto y lineas.
-nnoremap <C-J> :m .+1<CR>==
-nnoremap <C-K> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+" Vim {{{
 
-"-----------------------------------------------------------
-" Varios
-"-----------------------------------------------------------
+augroup ft_vim
+    au!
 
-" Para GVim
-"set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
+    au FileType vim setlocal foldmethod=marker
+    au FileType help setlocal textwidth=78
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+augroup END
 
-" Números de línea
-set nu
+" }}}
 
-" Que el scroll se quede 4 líneas por encima del final del texto
-set scrolloff=6
+" }}}
 
-" Se vuelver a seleccionar el texto despues de identarlo
-vnoremap < <gv
-vnoremap > >gv
+" Pulse Line {{{
 
-" Deshabilita la creacion de backups.
-set nobackup
-set nowritebackup
-set noswapfile
+function! s:Pulse()
+    let current_window = winnr()
+    windo set nocursorline
+    execute current_window . 'wincmd w'
+    setlocal cursorline
 
-" Incrementando el nivel de UNDO
-set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-set history=700
+    redir => old_hi
+        silent execute 'hi CursorLine'
+    redir END
+    let old_hi = split(old_hi, '\n')[0]
+    let old_hi = substitute(old_hi, 'xxx', '', '')
 
-" Mostrar linea actual resaltada.
-set cursorline
-":hi CursorLine   cterm=NONE ctermbg=233 guibg=grey
+    let steps = 9
+    let width = 1
+    let start = width
+    let end = steps * width
+    let color = 233
 
-" Cambiar la línea resaltada, por la columna resaltada.
-:nnoremap <C-Space> :set cursorline! cursorcolumn!<CR>
+    for i in range(start, end, width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+    for i in range(end, start, -1 * width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
 
-" Busqueda Recursiva con grep
-command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
-command! -nargs=1 RecurGrepFast exec 'lgrep! <q-args> ./**/*.*' | lopen
-nmap ,R :RecurGrep
-nmap ,r :RecurGrepFast
-nmap ,wR :RecurGrep <cword><CR>
-nmap ,wr :RecurGrepFast <cword><CR>
+    execute 'hi ' . old_hi
+endfunction
+command! -nargs=0 Pulse call s:Pulse()
 
-set wildmode=list:longest
+" }}}
 
-" Autocompletado para PHP
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+"" Ir a la definición de una clase, metodo, etc..
+"nmap gd <c-w><c-]>
 
-" CTAGS
-set tags=tags
-set tags+=/usr/lib/symfony/1.4.20/tags
-
-" Mostrar de otro color a partir de la columna 80
-" let &colorcolumn=join(range(81,999),",")
-set colorcolumn=80
+"" Busqueda Recursiva con grep
+"command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
+"command! -nargs=1 RecurGrepFast exec 'lgrep! <q-args> ./**/*.*' | lopen
+"nmap ,R :RecurGrep
+"nmap ,r :RecurGrepFast
+"nmap ,wR :RecurGrep <cword><CR>
+"nmap ,wr :RecurGrepFast <cword><CR>
 
 
-" Folding
-"set foldmethod=syntax
-"set foldlevelstart=1
-
-"let javaScript_fold=1         " JavaScript
-"let perl_fold=1               " Perl
-"let php_folding=1             " PHP
-"let r_syntax_folding=1        " R
-"let ruby_fold=1               " Ruby
-"let sh_fold_enabled=1         " sh
-"let vimsyn_folding='af'       " Vim script
-"let xml_syntax_folding=1      " XML
