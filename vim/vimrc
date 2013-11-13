@@ -100,7 +100,6 @@ set undoreload=10000
 set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
 set lazyredraw " No redibujar si se está ejecutando un macro, etc ...
-set matchtime=3
 set splitbelow " Ventana nueva abajo.
 set splitright " Ventan nueva a la derecha.
 set autoread " Recargar archivo si fue modificado fuera de vim.
@@ -110,10 +109,6 @@ set linebreak
 set dictionary=/usr/share/dict/words " Listado de palabras en ingles.
 set dictionary=/usr/share/dict/spanish " Listado de palabras en español.
 set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
-
-set notimeout
-set ttimeout
-set ttimeoutlen=10
 
 " Mejor autocompletado.
 set complete=.,w,b,u,t
@@ -285,7 +280,7 @@ nnoremap <leader>v <C-w>v
 map tn :tabn<cr>
 map tp :tabp<cr>
 map tm :tabm<cr>
-map tt :tabnew
+map tt :tabnew<cr>
 
 " Para mover bloques de texto y lineas.
 nnoremap <C-j> :m .+1<CR>==
