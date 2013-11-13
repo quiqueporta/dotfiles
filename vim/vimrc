@@ -270,7 +270,7 @@ noremap <leader>v <C-w>v
 map tn :tabn<cr>
 map tp :tabp<cr>
 map tm :tabm<cr>
-map tt :tabnew
+map tt :tabnew<cr>
 
 " Para mover bloques de texto y lineas.
 nnoremap <C-j> :m .+1<CR>==
