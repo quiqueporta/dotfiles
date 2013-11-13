@@ -97,7 +97,6 @@ set undoreload=10000
 set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
 set lazyredraw " No redibujar si se está ejecutando un macro, etc ...
-set matchtime=3
 set splitbelow " Ventana nueva abajo.
 set splitright " Ventan nueva a la derecha.
 set autoread " Recargar archivo si fue modificado fuera de vim.
@@ -106,10 +105,6 @@ set title
 set linebreak
 set dictionary=/usr/share/dict/words " Listado de palabras en ingles.
 set dictionary=/usr/share/dict/spanish " Listado de palabras en español.
-
-set notimeout
-set ttimeout
-set ttimeoutlen=10
 
 " Mejor autocompletado.
 set complete=.,w,b,u,t
