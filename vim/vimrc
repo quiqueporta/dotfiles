@@ -64,6 +64,9 @@ Bundle 'AutoComplPop'
 " Snippets
 Bundle 'vim-scripts/snipMate'
 
+" EasyGrep - Busqueda rápida de texto en archivos.
+Bundle 'vim-scripts/EasyGrep'
+
 " Tema de colores Monokai
 Bundle 'sickill/vim-monokai'
 
@@ -106,6 +109,7 @@ set title
 set linebreak
 set dictionary=/usr/share/dict/words " Listado de palabras en ingles.
 set dictionary=/usr/share/dict/spanish " Listado de palabras en español.
+set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
 
 set notimeout
 set ttimeout
@@ -220,6 +224,9 @@ nnoremap <leader>a ggVG
 " Selecciona la linea actual sin seleccionar la identación.
 nnoremap vv ^vg_
 
+" Que el vat seleccione desde el incio al fin de lineas.
+nnoremap vat vato0o$
+
 " Guardar con sudo.
 cnoremap w!! w !sudo tee % >/dev/null
 
@@ -239,6 +246,14 @@ nmap vimrc :tabnew ~/.vimrc<cr>
 " Cambiar la línea resaltada, por la columna resaltada.
 nnoremap <leader>c :set cursorline! cursorcolumn!<CR>
 
+" Cambiar de tipo de archivo
+nnoremap _h :set filetype:html<cr>
+nnoremap _p :set filetype:php<cr>
+
+" Se vuelver a seleccionar el texto despues de identarlo
+vnoremap < <gv
+vnoremap > >gv
+
 " }}}
 
 " Busqueda y Movimiento  -------------------------------------------------- {{{
@@ -252,7 +267,7 @@ set scrolloff=6
 set sidescroll=1
 set sidescrolloff=10
 
-noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
+nnoremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
 " Mantener en el medio la busqueda.
 nnoremap n nzzzv
@@ -264,7 +279,7 @@ noremap gj j
 noremap gk k
 
 " Creando una ventana vertical.
-noremap <leader>v <C-w>v
+nnoremap <leader>v <C-w>v
 
 " Movimiento entre los Tabs
 map tn :tabn<cr>
