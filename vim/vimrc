@@ -88,7 +88,6 @@ filetype plugin indent on
 
 set encoding=utf-8
 set autoindent
-set hidden
 set ttyfast
 set ruler
 set nonumber
@@ -226,7 +225,8 @@ nnoremap vat vato0o$
 cnoremap w!! w !sudo tee % >/dev/null
 
 " Duplicar una linea
-noremap dl :t.<CR>
+nnoremap <leader>d :t.<CR>
+vnoremap <leader>d y'>p
 
 " Cambiar entre ventanas
 noremap <TAB><TAB> <C-w><C-w>
@@ -448,13 +448,4 @@ command! -nargs=0 Pulse call s:Pulse()
 
 "" Ir a la definición de una clase, metodo, etc..
 "nmap gd <c-w><c-]>
-
-"" Busqueda Recursiva con grep
-"command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
-"command! -nargs=1 RecurGrepFast exec 'lgrep! <q-args> ./**/*.*' | lopen
-"nmap ,R :RecurGrep
-"nmap ,r :RecurGrepFast
-"nmap ,wR :RecurGrep <cword><CR>
-"nmap ,wr :RecurGrepFast <cword><CR>
-
 
