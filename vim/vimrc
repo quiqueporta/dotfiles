@@ -112,6 +112,7 @@ set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
 " Mejor autocompletado.
 set complete=.,w,b,u,t
 set completeopt=longest,menuone,preview
+set omnifunc=syntaxcomplete#Complete
 
 au VimResized * :wincmd = " Redimensionar los splits al reducir la ventana.
 
@@ -364,22 +365,11 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 highlight Pmenu ctermbg=4 guibg=LightGray
 
-" Busqueda en todo los ambitos
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_NamespaceSearch = 2
-let OmniCpp_DisplayMode = 1
-let OmniCpp_ShowScopeInAbbr = 0
-let OmniCpp_ShowPrototypeInAbbr = 1
-let OmniCpp_ShowAccess = 1
-" Comportamiento del Autocompletado
-let OmniCpp_MayCompleteDot = 0
-let OmniCpp_MayCompleteArrow = 0
-let OmniCpp_MayCompleteScope = 0
-
-let OmniCpp_SelectFirstItem = 0
-
 " Abrir el autocompletado
 imap <C-J> <C-X><C-O>
+
+" Ir a la definición de una clase, metodo, etc..
+nmap gd <c-w><c-]>
 
 " }}}
 " Snipmate  --------------------------------------------------------------- {{{
@@ -446,6 +436,4 @@ command! -nargs=0 Pulse call s:Pulse()
 
 " }}}
 
-"" Ir a la definición de una clase, metodo, etc..
-"nmap gd <c-w><c-]>
 
