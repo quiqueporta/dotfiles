@@ -140,16 +140,21 @@ set noswapfile
 
 " Tabs, espacios, wrapping {{{
 
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set wrap
 set formatoptions=qrn1j
 
-autocmd FileType html setlocal softtabstop=4 shiftwidth=4 tabstop=4
-autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType html setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
+autocmd FileType python setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
+autocmd FileType php setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
+autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+autocmd FileType css setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+autocmd FileType make setlocal softtabstop=8 shiftwidth=8 tabstop=8 noexpandtab
+
 " }}}
 " Color {{{
 
