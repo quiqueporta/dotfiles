@@ -226,8 +226,8 @@ nnoremap vat vato0o$
 cnoremap w!! w !sudo tee % >/dev/null
 
 " Duplicar una linea
-nnoremap <leader>d :t.<CR>
-vnoremap <leader>d y'>p
+nnoremap dl :t.<CR>
+vnoremap dl y'>p
 
 " Cambiar entre ventanas
 noremap <TAB><TAB> <C-w><C-w>
