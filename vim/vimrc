@@ -43,6 +43,9 @@ Bundle 'tpope/vim-surround'
 " Autoclose - Cierra automaticamente los caracteres
 Bundle 'Townk/vim-autoclose'
 
+" Syntax checking
+Bundle 'scrooloose/syntastic'
+
 " Commenter - Permite comentar las líneas de código
 Bundle 'scrooloose/nerdcommenter'
 
@@ -70,6 +73,9 @@ Bundle 'vim-scripts/EasyGrep'
 " Tema de colores Monokai
 Bundle 'sickill/vim-monokai'
 
+" Tema de colores solarized
+Bundle 'altercation/vim-colors-solarized'
+
 " }}}
 
 " Instalación inicial de los plugins  ------------------------------------- {{{
@@ -90,7 +96,7 @@ set encoding=utf-8
 set autoindent
 set ttyfast
 set ruler
-set nonumber
+"set nonumber
 set colorcolumn=80
 set laststatus=2 " Mostrar siempre el statusline
 set noshowmode " Ocultar el texto del modo (e.j. -- INSERT -- debajo)
@@ -144,7 +150,6 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set wrap
 set formatoptions=qrn1j
 
 autocmd FileType html setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
@@ -159,13 +164,13 @@ autocmd FileType make setlocal softtabstop=8 shiftwidth=8 tabstop=8 noexpandtab
 " Color {{{
 
 syntax on
-set background=dark
+set background=light
 
 if &term =~? 'mlterm\|xterm\|screen-256'
     let &t_Co = 256
     colorscheme monokai
 else
-    colorscheme monokai
+    colorscheme solarized
 endif
 
 " }}}
@@ -174,6 +179,11 @@ endif
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+  endif
+endif
 
 " Autocompletado
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
@@ -211,9 +221,6 @@ inoremap kj <esc>l
 
 " Cerrar un archivo
 nnoremap <leader>q <esc>:q<cr>
-
-" Man
-nnoremap M K
 
 " Mostrar/Coultar numeros de línea.
 nnoremap <leader>n :setlocal number!<cr>
@@ -379,6 +386,9 @@ nmap gd <c-w><c-]>
 " }}}
 " Snipmate  --------------------------------------------------------------- {{{
 let g:snippets_dir = '~/.vim/snippets/'
+" }}}
+" Syntastic  -------------------------------------------------------------- {{{
+let g:syntastic_auto_jump = 1
 " }}}
 " }}}
 
