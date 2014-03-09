@@ -55,6 +55,9 @@ Bundle 'majutsushi/tagbar'
 " Emmet - Creación rápida de HTML y CSS
 Bundle 'mattn/emmet-vim'
 
+" Python
+Bundle 'klen/python-mode'
+
 " Vim-easymotion - Permite desplazarse por el documento más rapido.
 Bundle 'Lokaltog/vim-easymotion'
 
@@ -213,6 +216,9 @@ vnoremap <F11> <esc>:registers<cr>
 
 " Quitar espacios al guardar el archivo
 noremap <F12> :%s/\s\+$//<CR>
+
+" Ejecutar el archivo python que hay cargado en pantalla.
+nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 
 " }}}
 
@@ -389,6 +395,24 @@ let g:snippets_dir = '~/.vim/snippets/'
 " }}}
 " Syntastic  -------------------------------------------------------------- {{{
 let g:syntastic_auto_jump = 1
+" }}}
+" Python Mode  ------------------------------------------------------------ {{{
+" don't show lint result every time we save a file
+let g:pymode_lint_on_write = 0
+" run pep8+pyflakes+pylint validator with \8
+autocmd FileType python map <buffer> <leader>8 :PymodeLint<CR>
+" rules to ignore (example: "E501,W293")
+let g:pymode_lint_ignore = ""
+" don't add extra column for error icons (on console vim creates a 2-char-wide
+" extra column)
+let g:pymode_lint_signs = 0
+" don't fold python code on open
+let g:pymode_folding = 0
+" don't load rope by default. Change to 1 to use rope
+let g:pymode_rope = 0
+" open definitions on same window, and with my custom mapping
+let g:pymode_rope_goto_definition_bind = ',d'
+let g:pymode_rope_goto_definition_cmd = 'e'
 " }}}
 " }}}
 
