@@ -36,7 +36,7 @@ LIGHT_GREEN="\[\033[1;32m\]"
 
 # Detect whether the current directory is a git repository.
 function is_git_repository {
-  git branch > /dev/null 2>&1
+  LANG=en_GB git branch > /dev/null 2>&1
 }
 
 # Detect whether the current directory is a subversion repository.
@@ -47,7 +47,7 @@ function is_svn_repository {
 # Determine the branch/state information for this git repository.
 function set_git_branch {
   # Capture the output of the "git status" command.
-  git_status="$(git status 2> /dev/null)"
+  git_status="$(LANG=en_GB git status 2> /dev/null)"
 
   # Set color based on clean/staged/dirty.
   if [[ ${git_status} =~ "working directory clean" ]]; then

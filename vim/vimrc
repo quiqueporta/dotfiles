@@ -99,8 +99,8 @@ set encoding=utf-8
 set autoindent
 set ttyfast
 set ruler
-"set nonumber
-set colorcolumn=80
+set number
+set colorcolumn=120
 set laststatus=2 " Mostrar siempre el statusline
 set noshowmode " Ocultar el texto del modo (e.j. -- INSERT -- debajo)
 set history=1000
@@ -394,7 +394,7 @@ nmap gd <c-w><c-]>
 let g:snippets_dir = '~/.vim/snippets/'
 " }}}
 " Syntastic  -------------------------------------------------------------- {{{
-let g:syntastic_auto_jump = 1
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd', 'jshint']
 " }}}
 " Python Mode  ------------------------------------------------------------ {{{
 " don't show lint result every time we save a file
