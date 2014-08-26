@@ -1,6 +1,3 @@
-" Based on:
-" https://bitbucket.org/sjl/dotfiles/src
-
 " Instalador Vundle  ------------------------------------------------------ {{{
 
 " Instalando el gestor de plugins Vundle
@@ -100,7 +97,7 @@ set autoindent
 set ttyfast
 set ruler
 set number
-set colorcolumn=120
+set colorcolumn=80
 set laststatus=2 " Mostrar siempre el statusline
 set noshowmode " Ocultar el texto del modo (e.j. -- INSERT -- debajo)
 set history=1000
@@ -115,7 +112,7 @@ set shiftround
 set title
 set linebreak
 set dictionary=/usr/share/dict/words " Listado de palabras en ingles.
-set dictionary=/usr/share/dict/spanish " Listado de palabras en español.
+"set dictionary=/usr/share/dict/spanish " Listado de palabras en español.
 set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
 
 " Mejor autocompletado.
@@ -189,8 +186,8 @@ if has("gui_running")
 endif
 
 " Autocompletado
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -331,9 +328,9 @@ let NERDTreeHighlightCursorline = 1
 " Ctrl-p ------------------------------------------------------------------ {{{
 
 let g:ctrlp_map = '<leader>e'
-noremap ,b :CtrlPBuffer<CR>
-noremap ,f :CtrlPLine<CR>
-noremap ,m :CtrlPMRUFiles<CR>
+noremap <leader>b :CtrlPBuffer<CR>
+noremap <leader>f :CtrlPLine<CR>
+noremap <leader>m :CtrlPMRUFiles<CR>
 
 "" Funcion para buscar por la palabra que se le pase
 function! CtrlPWithSearchText(search_text, ctrlp_command_end)
@@ -343,12 +340,12 @@ endfunction
 
 "" Busqueda de palabras
 "" Busca la palabra en el buffer
-noremap ,wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
+noremap <leader>wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
 "" Busca la palabra en el Archivo
-noremap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
+noremap <leader>wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
 "" Busca la palabra como nombre de archivo
-noremap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-noremap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
+noremap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
+noremap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
 
 "" Que no cambie el working directory
 let g:ctrlp_working_path_mode = 0
@@ -393,10 +390,16 @@ nmap gd <c-w><c-]>
 " Snipmate  --------------------------------------------------------------- {{{
 let g:snippets_dir = '~/.vim/snippets/'
 " }}}
+" Emmet  --------------------------------------------------------------- {{{
+imap hh <C-y>,
+" }}}
 " Syntastic  -------------------------------------------------------------- {{{
+let g:syntastic_python_checkers = ['pylint', 'pyflakes', 'pep8', 'python']
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd', 'jshint']
 " }}}
 " Python Mode  ------------------------------------------------------------ {{{
+" Disable lint check.
+let g:pymode_lint = 0
 " don't show lint result every time we save a file
 let g:pymode_lint_on_write = 0
 " run pep8+pyflakes+pylint validator with \8
@@ -409,10 +412,16 @@ let g:pymode_lint_signs = 0
 " don't fold python code on open
 let g:pymode_folding = 0
 " don't load rope by default. Change to 1 to use rope
-let g:pymode_rope = 0
+"let g:pymode_rope = 1
+"let g:pymode_rope_autoimport = 1
+"let g:pymode_rope_complete_on_dot = 1
+
 " open definitions on same window, and with my custom mapping
-let g:pymode_rope_goto_definition_bind = ',d'
+let g:pymode_rope_goto_definition_bind = 'gd'
 let g:pymode_rope_goto_definition_cmd = 'e'
+let g:pymode_breakpoint_bind = '<leader>B'
+" Virtualenv detection
+let g:pymode_virtualenv = 1
 " }}}
 " }}}
 
@@ -474,5 +483,3 @@ endfunction
 command! -nargs=0 Pulse call s:Pulse()
 
 " }}}
-
-
