@@ -189,3 +189,12 @@ augroup ft_vim
 augroup END
 " }}}
 
+" Highlight last spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave,BufWinEnter * match ExtraWhitespace /\s\+$/
+au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+" Remove last spaces
+au BufWritePre *.txt :%s/\s\+$//e
+au BufWritePre *.py :%s/\s\+$//e
+au BufWritePre *.js :%s/\s\+$//e
+au BufWritePre *.* :%s/\s\+$//e
