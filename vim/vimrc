@@ -82,6 +82,9 @@ let mapleader=","
 " Abrir el .vimrc para editarlo.
 nmap vimrc :tabnew ~/.vimrc<cr>
 
+" Cerrar un archivo
+nnoremap <leader>q <esc>:q<cr>
+
 " Guardar archivo
 noremap <F2> <esc>:w<cr>
 inoremap <F2> <esc>:w<cr>
