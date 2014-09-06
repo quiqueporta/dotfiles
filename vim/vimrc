@@ -28,53 +28,14 @@ Bundle 'gmarik/vundle'
 " Navegador de archivos NEDTree
 Bundle 'scrooloose/nerdtree'
 
-" Powerline mejorada
-Bundle 'Lokaltog/powerline', { 'rtp': 'powerline/bindings/vim' }
-
-" Fuzzy Finder - Buscar archivos
-Bundle 'kien/ctrlp.vim'
-
-" Surround - Permite cambiar los caracteres o tags que rodean un texto.
-Bundle 'tpope/vim-surround'
-
-" Autoclose - Cierra automaticamente los caracteres
-Bundle 'Townk/vim-autoclose'
-
-" Syntax checking
-Bundle 'scrooloose/syntastic'
-
-" Commenter - Permite comentar las líneas de código
-Bundle 'scrooloose/nerdcommenter'
-
-" Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
-Bundle 'majutsushi/tagbar'
-
-" Emmet - Creación rápida de HTML y CSS
-Bundle 'mattn/emmet-vim'
-
-" Python
-Bundle 'klen/python-mode'
-
-" Vim-easymotion - Permite desplazarse por el documento más rapido.
-Bundle 'Lokaltog/vim-easymotion'
-
-" Multiple cursors
-Bundle 'terryma/vim-multiple-cursors'
-
-" Autocompletado mejorado
-Bundle 'AutoComplPop'
-
-" Snippets
-Bundle 'vim-scripts/snipMate'
-
-" EasyGrep - Busqueda rápida de texto en archivos.
-Bundle 'vim-scripts/EasyGrep'
-
 " Tema de colores Monokai
 Bundle 'sickill/vim-monokai'
 
 " Tema de colores solarized
 Bundle 'altercation/vim-colors-solarized'
+
+" Jedi
+Bundle 'davidhalter/jedi-vim'
 
 " }}}
 
@@ -90,227 +51,49 @@ filetype plugin indent on
 
 " }}}
 
-" Opciones Básicas  ------------------------------------- {{{
+" Color ------------------------------------------------------------------- {{{
+syntax on
+set background=light
+if &term =~? 'mlterm\|xterm\|screen-256'
+	let &t_Co = 256
+	colorscheme monokai
+else
+	colorscheme solarized
+endif
+" }}}
 
+" Opciones basica --------------------------------------------------------- {{{
 set encoding=utf-8
+set tabstop=4
+set shiftwidth=4
+set expandtab
 set autoindent
-set ttyfast
+set smartindent
 set ruler
 set number
 set colorcolumn=80
-set laststatus=2 " Mostrar siempre el statusline
-set noshowmode " Ocultar el texto del modo (e.j. -- INSERT -- debajo)
-set history=1000
-set undoreload=10000
-set list
-set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
-set lazyredraw " No redibujar si se está ejecutando un macro, etc ...
-set splitbelow " Ventana nueva abajo.
-set splitright " Ventan nueva a la derecha.
-set autoread " Recargar archivo si fue modificado fuera de vim.
-set shiftround
-set title
-set linebreak
-set dictionary=/usr/share/dict/words " Listado de palabras en ingles.
-"set dictionary=/usr/share/dict/spanish " Listado de palabras en español.
-set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
-
-" Mejor autocompletado.
-set complete=.,w,b,u,t
-set completeopt=longest,menuone,preview
-set omnifunc=syntaxcomplete#Complete
-
-au VimResized * :wincmd = " Redimensionar los splits al reducir la ventana.
-
-let mapleader = "," " Remapear el leader key
-
-" Solo mostrar el current line en la ventana actual y en normal mode.
-set cursorline
-augroup cline
-    au!
-    au WinLeave,InsertEnter * set nocursorline
-    au WinEnter,InsertLeave * set cursorline
-augroup END
-
-" Mejorando el Wildmenu
-set wildmenu
-set wildmode=list:longest
-
-" Habilitamos el ratón
-set mouse=a
-
-" Deshabilita la creacion de backups.
 set nobackup
-set nowritebackup
-set noswapfile
-
-" Tabs, espacios, wrapping {{{
-
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set formatoptions=qrn1j
-
-autocmd FileType html setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
-autocmd FileType python setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
-autocmd FileType php setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
-autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
-autocmd FileType css setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
-autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
-autocmd FileType make setlocal softtabstop=8 shiftwidth=8 tabstop=8 noexpandtab
-
-" }}}
-" Color {{{
-
-syntax on
-set background=light
-
-if &term =~? 'mlterm\|xterm\|screen-256'
-    let &t_Co = 256
-    colorscheme monokai
-else
-    colorscheme solarized
-endif
-
 " }}}
 
-" Ocultar barras de herramientas de Gvim
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-if has("gui_running")
-  if has("gui_gtk2")
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-  endif
-endif
+" Remapeo de teclas ------------------------------------------------------- {{{
 
-" Autocompletado
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-" }}}
-
-" Remapeo de teclas  ------------------------------------------------------ {{{
-
-" Teclas de Funcion {{{
-" Help key.
-noremap  <F1> <nop>
-inoremap <F1> <nop>
-
-" Guardar Archivo
-noremap <F2> <esc>:w<cr>
-inoremap <F2> <esc>:w<cr>
-vnoremap <F2> <esc>:w<cr>
-
-" Muestra los registros,
-nnoremap <F11> <esc>:registers<cr>
-inoremap <F11> <esc>:registers<cr>
-vnoremap <F11> <esc>:registers<cr>
-
-" Quitar espacios al guardar el archivo
-noremap <F12> :%s/\s\+$//<CR>
-
-" Ejecutar el archivo python que hay cargado en pantalla.
-nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
-
-" }}}
-
-" Reemplazo del ESC.
-inoremap kj <esc>l
-
-" Cerrar un archivo
-nnoremap <leader>q <esc>:q<cr>
-
-" Mostrar/Coultar numeros de línea.
-nnoremap <leader>n :setlocal number!<cr>
-
-" Seleccionar todo el documento.
-nnoremap <leader>a ggVG
-
-" Selecciona la linea actual sin seleccionar la identación.
-nnoremap vv ^vg_
-
-" Que el vat seleccione desde el incio al fin de lineas.
-nnoremap vat vato0o$
-
-" Guardar con sudo.
-cnoremap w!! w !sudo tee % >/dev/null
-
-" Duplicar una linea
-nnoremap dl :t.<CR>
-vnoremap dl y'>p
-
-" Cambiar entre ventanas
-noremap <TAB><TAB> <C-w><C-w>
-
-" Cambiar tamaño ventanas
-noremap > <C-w>>
-noremap < <C-w><
+let mapleader=","
 
 " Abrir el .vimrc para editarlo.
 nmap vimrc :tabnew ~/.vimrc<cr>
 
-" Cambiar la línea resaltada, por la columna resaltada.
-nnoremap <leader>c :set cursorline! cursorcolumn!<CR>
+" Guardar archivo
+noremap <F2> <esc>:w<cr>
+inoremap <F2> <esc>:w<cr>
+vnoremap <F2> <esc>:w<cr>
 
-" Cambiar de tipo de archivo
-nnoremap _h :set filetype:html<cr>
-nnoremap _p :set filetype:php<cr>
-
-" Se vuelver a seleccionar el texto despues de identarlo
-vnoremap < <gv
-vnoremap > >gv
+" <ESC>
+inoremap kj <esc>l
 
 " }}}
 
-" Busqueda y Movimiento  -------------------------------------------------- {{{
-
-set ignorecase
-set smartcase
-set incsearch
-set hlsearch
-
-set scrolloff=6
-set sidescroll=1
-set sidescrolloff=10
-
-nnoremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
-
-" Mantener en el medio la busqueda.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-noremap j gj
-noremap k gk
-noremap gj j
-noremap gk k
-
-" Creando una ventana vertical.
-nnoremap <leader>v <C-w>v
-
-" Movimiento entre los Tabs
-map tn :tabn<cr>
-map tp :tabp<cr>
-map tm :tabm<cr>
-map tt :tabnew<cr>
-
-" Para mover bloques de texto y lineas.
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
-
-
-" }}}
-
-"Plugins - Configuración -------------------------------------------------- {{{
-" NERDTree --------------------------------------------------------------- {{{
+" PLugins - Configuración ------------------------------------------------- {{{
+" NERDTree ---------------------------------------------------------------- {{{
 
 " Abrir el NERDTree
 noremap <F3> :NERDTreeToggle<cr>
@@ -319,167 +102,22 @@ inoremap <F3> <esc>:NERDTreeToggle<cr>
 " Encuentra un archivo abierto en el NERDTree
 map <F4> :NERDTreeFind<CR>
 
-" Ignorando archivos a mostrar.
-let NERDTreeIgnore=['\.pyc$']
-
-let NERDTreeHighlightCursorline = 1
-
 " }}}
-" Ctrl-p ------------------------------------------------------------------ {{{
-
-let g:ctrlp_map = '<leader>e'
-noremap <leader>b :CtrlPBuffer<CR>
-noremap <leader>f :CtrlPLine<CR>
-noremap <leader>m :CtrlPMRUFiles<CR>
-
-"" Funcion para buscar por la palabra que se le pase
-function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-    execute ':CtrlP' . a:ctrlp_command_end
-    call feedkeys(a:search_text)
-endfunction
-
-"" Busqueda de palabras
-"" Busca la palabra en el buffer
-noremap <leader>wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
-"" Busca la palabra en el Archivo
-noremap <leader>wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-"" Busca la palabra como nombre de archivo
-noremap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-noremap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-
-"" Que no cambie el working directory
-let g:ctrlp_working_path_mode = 0
-
-"" Ignorar estos archivos
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
-    \ 'file': '\.pyc$\|\.pyo$',
-    \ }
-let ctrlp_filter_greps = "".
-    \ "egrep -iv '\\.(" .
-    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
-    \ ")$' | " .
-    \ "egrep -v '^(\\./)?(" .
-    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
-    \ ")'"
-
-" }}}
-" Tagbar ------------------------------------------------------------------ {{{
-map <F5> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-let g:tagbar_compact = 1
-let g:tagbar_foldlevel = 0
-" }}}
-" Multi Cursor ------------------------------------------------------------ {{{
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-" }}}
-" Autocompletion----------------------------------------------------------- {{{
-" Cerrado automatico del Autocompletions
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-highlight Pmenu ctermbg=4 guibg=LightGray
-
-" Abrir el autocompletado
-imap <C-J> <C-X><C-O>
-
-" Ir a la definición de una clase, metodo, etc..
-nmap gd <c-w><c-]>
-
-" }}}
-" Snipmate  --------------------------------------------------------------- {{{
-let g:snippets_dir = '~/.vim/snippets/'
-" }}}
-" Emmet  --------------------------------------------------------------- {{{
-imap hh <C-y>,
-" }}}
-" Syntastic  -------------------------------------------------------------- {{{
-let g:syntastic_python_checkers = ['pylint', 'pyflakes', 'pep8', 'python']
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd', 'jshint']
-" }}}
-" Python Mode  ------------------------------------------------------------ {{{
-" Disable lint check.
-let g:pymode_lint = 0
-" don't show lint result every time we save a file
-let g:pymode_lint_on_write = 0
-" run pep8+pyflakes+pylint validator with \8
-autocmd FileType python map <buffer> <leader>8 :PymodeLint<CR>
-" rules to ignore (example: "E501,W293")
-let g:pymode_lint_ignore = ""
-" don't add extra column for error icons (on console vim creates a 2-char-wide
-" extra column)
-let g:pymode_lint_signs = 0
-" don't fold python code on open
-let g:pymode_folding = 0
-" don't load rope by default. Change to 1 to use rope
-"let g:pymode_rope = 1
-"let g:pymode_rope_autoimport = 1
-"let g:pymode_rope_complete_on_dot = 1
-
-" open definitions on same window, and with my custom mapping
-let g:pymode_rope_goto_definition_bind = 'gd'
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_breakpoint_bind = '<leader>B'
-" Virtualenv detection
-let g:pymode_virtualenv = 1
+" Jedi -------------------------------------------------------------------- {{{
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
 " }}}
 " }}}
 
 " Folding ----------------------------------------------------------------- {{{
-
-set foldlevelstart=0
-
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
-
-" Vim {{{
-
 augroup ft_vim
     au!
-
     au FileType vim setlocal foldmethod=marker
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 augroup END
-
 " }}}
 
-" }}}
-
-" Pulse Line {{{
-
-function! s:Pulse()
-    let current_window = winnr()
-    windo set nocursorline
-    execute current_window . 'wincmd w'
-    setlocal cursorline
-
-    redir => old_hi
-        silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    let steps = 9
-    let width = 1
-    let start = width
-    let end = steps * width
-    let color = 233
-
-    for i in range(start, end, width)
-        execute "hi CursorLine ctermbg=" . (color + i)
-        redraw
-        sleep 6m
-    endfor
-    for i in range(end, start, -1 * width)
-        execute "hi CursorLine ctermbg=" . (color + i)
-        redraw
-        sleep 6m
-    endfor
-
-    execute 'hi ' . old_hi
-endfunction
-command! -nargs=0 Pulse call s:Pulse()
-
-" }}}
