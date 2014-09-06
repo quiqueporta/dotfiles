@@ -28,6 +28,9 @@ Bundle 'gmarik/vundle'
 " Navegador de archivos NEDTree
 Bundle 'scrooloose/nerdtree'
 
+" Powerline mejorada
+Bundle 'Lokaltog/powerline', { 'rtp': 'powerline/bindings/vim' }
+
 " Tema de colores Monokai
 Bundle 'sickill/vim-monokai'
 
@@ -36,6 +39,9 @@ Bundle 'altercation/vim-colors-solarized'
 
 " Jedi
 Bundle 'davidhalter/jedi-vim'
+
+" Fuzzy Finder - Buscar archivos
+Bundle 'kien/ctrlp.vim'
 
 " }}}
 
@@ -112,6 +118,39 @@ let g:jedi#goto_definitions_command = "<leader>d"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
+" }}}
+" Ctrl-p ------------------------------------------------------------------ {{{
+let g:ctrlp_map = '<leader>e'
+noremap <leader>b :CtrlPBuffer<CR>
+noremap <leader>f :CtrlPLine<CR>
+noremap <leader>m :CtrlPMRUFiles<CR>
+"" Funcion para buscar por la palabra que se le pase
+function! CtrlPWithSearchText(search_text, ctrlp_command_end)
+    execute ':CtrlP' . a:ctrlp_command_end
+    call feedkeys(a:search_text)
+endfunction
+"" Busqueda de palabras
+"" Busca la palabra en el buffer
+noremap <leader>wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
+"" Busca la palabra en el Archivo
+noremap <leader>wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
+"" Busca la palabra como nombre de archivo
+noremap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
+noremap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
+"" Que no cambie el working directory
+let g:ctrlp_working_path_mode = 0
+"" Ignorar estos archivos
+let g:ctrlp_custom_ignore = {
+            \ 'dir': '\v[\/](\.git|\.hg|\.svn)$',
+            \ 'file': '\.pyc$\|\.pyo$',
+            \ }
+let ctrlp_filter_greps = "".
+            \ "egrep -iv '\\.(" .
+            \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+            \ ")$' | " .
+            \ "egrep -v '^(\\./)?(" .
+            \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
+            \ ")'"
 " }}}
 " }}}
 
