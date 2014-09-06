@@ -79,6 +79,10 @@ set ruler
 set number
 set colorcolumn=80
 set nobackup
+set laststatus=2
+set noshowmode
+set list
+set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
 " }}}
 
 " Remapeo de teclas ------------------------------------------------------- {{{
@@ -98,6 +102,28 @@ vnoremap <F2> <esc>:w<cr>
 
 " <ESC>
 inoremap kj <esc>l
+
+" Duplicar linea
+nnoremap dl :t.<CR>
+
+" Mover linea a linea
+noremap j gj
+noremap k gk
+
+" Para mover bloques de texto y lineas.
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+
+
+" }}}
+
+" Busqueda ---------------------------------------------------------------- {{{
+set incsearch
+set hlsearch
+
+" Mantener en el medio la busqueda.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " }}}
 
