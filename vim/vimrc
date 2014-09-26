@@ -43,6 +43,18 @@ Bundle 'davidhalter/jedi-vim'
 " Fuzzy Finder - Buscar archivos
 Bundle 'kien/ctrlp.vim'
 
+" Commenter - Permite comentar las líneas de código
+Bundle 'scrooloose/nerdcommenter'
+
+" Autocompletado mejorado
+Bundle 'AutoComplPop'
+
+" Surround
+Bundle 'tpope/vim-surround'
+
+" Syntastic
+Bundle 'scrooloose/syntastic'
+
 " }}}
 
 " Instalación inicial de los plugins  ------------------------------------- {{{
@@ -70,11 +82,14 @@ endif
 
 " Opciones basica --------------------------------------------------------- {{{
 set encoding=utf-8
+
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 set autoindent
 set smartindent
+
 set ruler
 set number
 set colorcolumn=80
@@ -83,6 +98,19 @@ set laststatus=2
 set noshowmode
 set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
+set splitbelow " Ventana nueva abajo
+set splitright " Ventan nueva a la derecha.
+set autoread " Recargar archivo si fue modificado fuera de vim.
+
+
+" Solo mostrar el current line en la ventana actual y en normal mode.
+set cursorline
+augroup cline
+    au!
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
+augroup END
+
 " }}}
 
 " Remapeo de teclas ------------------------------------------------------- {{{
@@ -114,12 +142,36 @@ noremap k gk
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
 
+" Se vuelver a seleccionar el texto despues de identarlo
+vnoremap < <gv
+vnoremap > >gv
+
+" Selecciona la linea actual sin seleccionar la identación.
+nnoremap vv ^vg_
+
+" Seleccionar todo el documento.
+nnoremap <leader>a ggVG
+
+" Movimiento entre los Tabs
+map tn :tabn<cr>
+map tp :tabp<cr>
+map tm :tabm<cr>
+map tt :tabnew<cr>
+
+" Cambiar entre ventanas
+noremap <TAB><TAB> <C-w><C-w>
+
+" Se vuelver a seleccionar el texto despues de identarlo
+vnoremap < <gv
+vnoremap > >gv
 
 " }}}
 
 " Busqueda ---------------------------------------------------------------- {{{
 set incsearch
+set ignorecase
 set hlsearch
+set scrolloff=10
 
 " Mantener en el medio la busqueda.
 nnoremap n nzzzv
@@ -127,7 +179,7 @@ nnoremap N Nzzzv
 
 " }}}
 
-" PLugins - Configuración ------------------------------------------------- {{{
+" Plugins - Configuración ------------------------------------------------- {{{
 " NERDTree ---------------------------------------------------------------- {{{
 
 " Abrir el NERDTree
@@ -136,6 +188,9 @@ inoremap <F3> <esc>:NERDTreeToggle<cr>
 
 " Encuentra un archivo abierto en el NERDTree
 map <F4> :NERDTreeFind<CR>
+
+" No mostrar archivos con estas terminaciones.
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " }}}
 " Jedi -------------------------------------------------------------------- {{{
@@ -178,6 +233,9 @@ let ctrlp_filter_greps = "".
             \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
             \ ")'"
 " }}}
+" Syntastic -------------------------------------------------------------- {{{
+let g:syntastic_python_checkers = ['flake8']
+" }}}
 " }}}
 
 " Folding ----------------------------------------------------------------- {{{
@@ -189,6 +247,7 @@ augroup ft_vim
 augroup END
 " }}}
 
+" Misc ----------------------------------------------------------------- {{{
 " Highlight last spaces
 highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave,BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -198,3 +257,6 @@ au BufWritePre *.txt :%s/\s\+$//e
 au BufWritePre *.py :%s/\s\+$//e
 au BufWritePre *.js :%s/\s\+$//e
 au BufWritePre *.* :%s/\s\+$//e
+" }}}
+
+ab _pdb import pdb; pdb.set_trace()
