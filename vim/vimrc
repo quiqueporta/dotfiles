@@ -37,9 +37,6 @@ Bundle 'sickill/vim-monokai'
 " Tema de colores solarized
 Bundle 'altercation/vim-colors-solarized'
 
-" Jedi
-Bundle 'davidhalter/jedi-vim'
-
 " Fuzzy Finder - Buscar archivos
 Bundle 'kien/ctrlp.vim'
 
@@ -54,6 +51,12 @@ Bundle 'tpope/vim-surround'
 
 " Syntastic
 Bundle 'scrooloose/syntastic'
+
+" Multiple cursors
+Bundle 'terryma/vim-multiple-cursors'
+
+" Python
+Bundle 'klen/python-mode'
 
 " }}}
 
@@ -235,6 +238,34 @@ let ctrlp_filter_greps = "".
 " }}}
 " Syntastic -------------------------------------------------------------- {{{
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore=E501'
+" }}}
+" Multi Cursor ------------------------------------------------------------ {{{
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+" }}}
+" Python Mode ------------------------------------------------------------ {{{
+" Disable lint check.
+let g:pymode_lint = 0
+" don't show lint result every time we save a file
+let g:pymode_lint_on_write = 0
+" run pep8+pyflakes+pylint validator with \8
+autocmd FileType python map <buffer> <leader>8 :PymodeLint<CR>
+" rules to ignore (example: "E501,W293")
+let g:pymode_lint_ignore = ""
+" don't add extra column for error icons (on console vim creates a 2-char-wide
+" extra column)
+let g:pymode_lint_signs = 0
+" don't fold python code on open
+let g:pymode_folding = 0
+" don't load rope by default. Change to 1 to use rope
+"let g:pymode_rope = 1
+"let g:pymode_rope_autoimport = 1
+"let g:pymode_rope_complete_on_dot = 1
+" open definitions on same window, and with my custom mapping
+let g:pymode_breakpoint_bind = '<leader>B'
+" Virtualenv detection
+let g:pymode_virtualenv = 1
 " }}}
 " }}}
 
@@ -257,6 +288,16 @@ au BufWritePre *.txt :%s/\s\+$//e
 au BufWritePre *.py :%s/\s\+$//e
 au BufWritePre *.js :%s/\s\+$//e
 au BufWritePre *.* :%s/\s\+$//e
+
+" simple recursive grep
+" both recursive grep commands with internal or external (fast) grep
+command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
+command! -nargs=1 RecurGrepFast silent exec 'lgrep! <q-args> ./**/*.*' | lopen
+" mappings to call them
+nmap <leader>R :RecurGrep
+nmap <leader>r :RecurGrepFast
+" mappings to call them with the default word as search text
+nmap <leader>wR :RecurGrep <cword><CR>
+nmap <leader>wr :RecurGrepFast <cword><CR>
 " }}}
 
-ab _pdb import pdb; pdb.set_trace()
