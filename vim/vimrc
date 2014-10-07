@@ -266,6 +266,7 @@ let g:pymode_folding = 0
 let g:pymode_breakpoint_bind = '<leader>B'
 " Virtualenv detection
 let g:pymode_virtualenv = 1
+let g:pymode_rope = 0
 " }}}
 " }}}
 
