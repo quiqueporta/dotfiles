@@ -42,7 +42,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 
 " Autocompletado mejorado
-" Bundle 'AutoComplPop'
+Bundle 'AutoComplPop'
 
 " Surround
 Bundle 'tpope/vim-surround'
