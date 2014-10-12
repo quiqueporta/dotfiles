@@ -42,7 +42,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 
 " Autocompletado mejorado
-" Bundle 'AutoComplPop'
+Bundle 'Shougo/neocomplcache'
 
 " Surround
 Bundle 'tpope/vim-surround'
@@ -242,8 +242,48 @@ let ctrlp_filter_greps = "".
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 " }}}
-" Python Jedi ------------------------------------------------------------ {{{
+" Jedi & neocomplcache ------------------------------------------ {{{
 
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+
+
+let g:jedi#popup_on_dot=0
+" make neocomplcache use jedi#completions omini function for python scripts
+if !exists('g:neocomplcache_omni_functions')
+    let g:neocomplcache_omni_functions = {}
+    let g:neocomplcache_omni_functions['python'] = 'jedi#completions'
+endif
+" make Vim call omni function when below patterns matchs
+let g:neocomplcache_force_omni_patterns = {}
+let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 " }}}
 " }}}
 
@@ -259,14 +299,14 @@ augroup END
 " Misc ----------------------------------------------------------------- {{{
 
 " Highlight last spaces
-"highlight ExtraWhitespace ctermbg=red guibg=red
-"au InsertLeave,BufWinEnter * match ExtraWhitespace /\s\+$/
-"au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave,BufWinEnter * match ExtraWhitespace /\s\+$/
+au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 " Remove last spaces
-"au BufWritePre *.txt :%s/\s\+$//e
-"au BufWritePre *.py :%s/\s\+$//e
-"au BufWritePre *.js :%s/\s\+$//e
-"au BufWritePre *.* :%s/\s\+$//e
+au BufWritePre *.txt :%s/\s\+$//e
+au BufWritePre *.py :%s/\s\+$//e
+au BufWritePre *.js :%s/\s\+$//e
+au BufWritePre *.* :%s/\s\+$//e
 
 " simple recursive grep
 " both recursive grep commands with internal or external (fast) grep
