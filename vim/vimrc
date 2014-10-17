@@ -31,31 +31,43 @@ Bundle 'scrooloose/nerdtree'
 " Powerline mejorada
 Bundle 'Lokaltog/powerline', { 'rtp': 'powerline/bindings/vim' }
 
-" Temas de colores
-Bundle 'sickill/vim-monokai'
-Bundle 'altercation/vim-colors-solarized'
-
 " Fuzzy Finder - Buscar archivos
 Bundle 'kien/ctrlp.vim'
 
 " Commenter - Permite comentar las líneas de código
 Bundle 'scrooloose/nerdcommenter'
 
-" Autocompletado mejorado
-Bundle 'Shougo/neocomplcache'
-
 " Surround
 Bundle 'tpope/vim-surround'
+
+" Autoclose - Cierra automaticamente los caracteres
+Bundle 'Townk/vim-autoclose'
+
+" Syntax checking
+"Bundle 'scrooloose/syntastic'
+
+" Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
+Bundle 'majutsushi/tagbar'
 
 " Multiple cursors
 Bundle 'terryma/vim-multiple-cursors'
 
 " Python
-Bundle 'davidhalter/jedi-vim'
+Bundle 'klen/python-mode'
+
+" Vim-easymotion - Permite desplazarse por el documento más rapido.
+Bundle 'Lokaltog/vim-easymotion'
+
+" Autocompletado mejorado
+Bundle 'AutoComplPop'
 
 "Snippets
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
+
+" Temas de colores
+Bundle 'sickill/vim-monokai'
+Bundle 'altercation/vim-colors-solarized'
 
 " }}}
 
@@ -85,27 +97,45 @@ endif
 " Opciones basica --------------------------------------------------------- {{{
 set encoding=utf-8
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set autoindent
-set smartindent
-
 set ruler
 set number
+set laststatus=2
+set noshowmode
 set colorcolumn=80
+
+" Mejorando el Wildmenu
+set wildmenu
+set wildmode=list:longest
+
+" Deshabilita la creacion de backups.
 set nobackup
 set nowritebackup
 set noswapfile
-set laststatus=2
-set noshowmode
+
+" Busquedas
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" Mostrar caracteres como espacios, tabs, etc...
 set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
+set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
+
 set splitbelow " Ventana nueva abajo
 set splitright " Ventan nueva a la derecha.
 set autoread " Recargar archivo si fue modificado fuera de vim.
 
+" Mejor autocompletado.
+set complete=.,w,b,u,t
+set completeopt=longest,menuone,preview
+set omnifunc=syntaxcomplete#Complete
+
+" Habilitamos el ratón
+set mouse=a
+
+au VimResized * :wincmd = " Redimensionar los splits al reducir la ventana.
 
 " Solo mostrar el current line en la ventana actual y en normal mode.
 set cursorline
@@ -115,11 +145,37 @@ augroup cline
     au WinEnter,InsertLeave * set cursorline
 augroup END
 
+" Autocompletado
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
 " }}}
 
+" Tabs, espacios, wrapping ------------------------------------------------ {{{
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set formatoptions=qrn1j
+
+autocmd FileType html setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+autocmd FileType python setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
+autocmd FileType css setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+autocmd FileType make setlocal softtabstop=8 shiftwidth=8 tabstop=8 noexpandtab
+
+" }}}
+"
 " Remapeo de teclas ------------------------------------------------------- {{{
 
 let mapleader=","
+
+" Help key.
+noremap <F1> <nop>
+inoremap <F1> <nop>
 
 " Abrir el .vimrc para editarlo.
 nmap vimrc :tabnew ~/.vimrc<cr>
@@ -131,6 +187,21 @@ nnoremap <leader>q <esc>:q<cr>
 noremap <F2> <esc>:w<cr>
 inoremap <F2> <esc>:w<cr>
 vnoremap <F2> <esc>:w<cr>
+
+" Abrir el NERDTree
+noremap <F3> :NERDTreeToggle<cr>
+inoremap <F3> <esc>:NERDTreeToggle<cr>
+
+" Encuentra un archivo abierto en el NERDTree
+noremap <F4> :NERDTreeFind<CR>
+
+" Abre o cierra el Tagbar
+map <F5> :TagbarToggle<CR>
+
+" Muestra los registros,
+nnoremap <F11> <esc>:registers<cr>
+inoremap <F11> <esc>:registers<cr>
+vnoremap <F11> <esc>:registers<cr>
 
 " <ESC>
 inoremap kj <esc>l
@@ -145,8 +216,10 @@ noremap k gk
 " Para mover bloques de texto y lineas.
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
-inoremap <C-k> <Esc>:m-2<CR>
-inoremap <C-j> <Esc>:m+<CR>
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Se vuelver a seleccionar el texto despues de identarlo
 vnoremap < <gv
@@ -154,6 +227,9 @@ vnoremap > >gv
 
 " Selecciona la linea actual sin seleccionar la identación.
 nnoremap vv ^vg_
+
+" Que el vat seleccione desde el incio al fin de lineas.
+nnoremap vat vato0o$
 
 " Seleccionar todo el documento.
 nnoremap <leader>a ggVG
@@ -173,9 +249,9 @@ cmap w!! %!sudo tee > /dev/null %
 " Limpiar busquedas
 noremap <silent><Leader>/ :nohls<CR>
 
-" Nuevas lineas sin entrar en insert mode
-nmap t o<ESC>k
-nmap T O<ESC>j
+" Mantener en el medio la busqueda.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " }}}
 
@@ -194,15 +270,10 @@ nnoremap N Nzzzv
 " Plugins - Configuración ------------------------------------------------- {{{
 " NERDTree ---------------------------------------------------------------- {{{
 
-" Abrir el NERDTree
-noremap <F3> :NERDTreeToggle<cr>
-inoremap <F3> <esc>:NERDTreeToggle<cr>
-
-" Encuentra un archivo abierto en el NERDTree
-map <F4> :NERDTreeFind<CR>
-
 " No mostrar archivos con estas terminaciones.
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+
+let NERDTreeHighlightCursorline = 1
 
 " }}}
 " Ctrl-p ------------------------------------------------------------------ {{{
@@ -238,52 +309,51 @@ let ctrlp_filter_greps = "".
             \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
             \ ")'"
 " }}}
+" Tagbar ------------------------------------------------------------------ {{{
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_foldlevel = 0
+" }}}
 " Multi Cursor ------------------------------------------------------------ {{{
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 " }}}
-" Jedi & neocomplcache ------------------------------------------ {{{
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
-
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-
-
-let g:jedi#popup_on_dot=0
-" make neocomplcache use jedi#completions omini function for python scripts
-if !exists('g:neocomplcache_omni_functions')
-    let g:neocomplcache_omni_functions = {}
-    let g:neocomplcache_omni_functions['python'] = 'jedi#completions'
-endif
-" make Vim call omni function when below patterns matchs
-let g:neocomplcache_force_omni_patterns = {}
-let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+" Autocompletion----------------------------------------------------------- {{{
+" Cerrado automatico del Autocompletions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+highlight Pmenu ctermbg=4 guibg=LightGray
+" Abrir el autocompletado
+imap <C-J> <C-X><C-O>
+" Ir a la definición de una clase, metodo, etc..
+nmap gd <c-w><c-]>
+" }}}
+" Python Mode ------------------------------------------------------------ {{{
+" Disable lint check.
+let g:pymode_lint = 1
+" don't show lint result every time we save a file
+let g:pymode_lint_on_write = 1
+" rules to ignore (example: "E501,W293")
+let g:pymode_lint_ignore = "E501,C0111"
+" don't add extra column for error icons (on console vim creates a 2-char-wide
+" extra column)
+let g:pymode_lint_signs = 1
+" don't fold python code on open
+let g:pymode_folding = 0
+" don't load rope by default. Change to 1 to use rope
+"let g:pymode_rope = 1
+"let g:pymode_rope_autoimport = 1
+"let g:pymode_rope_complete_on_dot = 1
+" open definitions on same window, and with my custom mapping
+let g:pymode_rope_goto_definition_bind = 'gd'
+let g:pymode_rope_goto_definition_cmd = 'e'
+let g:pymode_breakpoint_bind = '<leader>B'
+" Virtualenv detection
+let g:pymode_virtualenv = 1
+" }}}
+" Syntastic -------------------------------------------------------------- {{{
+"let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_python_checker_args='asas-d C0111,E501'
 " }}}
 " }}}
 
@@ -302,21 +372,11 @@ augroup END
 highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave,BufWinEnter * match ExtraWhitespace /\s\+$/
 au ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
 " Remove last spaces
 au BufWritePre *.txt :%s/\s\+$//e
 au BufWritePre *.py :%s/\s\+$//e
 au BufWritePre *.js :%s/\s\+$//e
 au BufWritePre *.* :%s/\s\+$//e
-
-" simple recursive grep
-" both recursive grep commands with internal or external (fast) grep
-command! -nargs=1 RecurGrep lvimgrep /<args>/gj ./**/*.* | lopen | set nowrap
-command! -nargs=1 RecurGrepFast silent exec 'lgrep! <q-args> ./**/*.*' | lopen
-" mappings to call them
-nmap <leader>R :RecurGrep
-nmap <leader>r :RecurGrepFast
-" mappings to call them with the default word as search text
-nmap <leader>wR :RecurGrep <cword><CR>
-nmap <leader>wr :RecurGrepFast <cword><CR>
 " }}}
 
