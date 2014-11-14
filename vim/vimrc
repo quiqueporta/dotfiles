@@ -98,7 +98,7 @@ endif
 set encoding=utf-8
 
 set ruler
-set number
+set relativenumber
 set laststatus=2
 set noshowmode
 set colorcolumn=80
@@ -224,6 +224,8 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " Se vuelver a seleccionar el texto despues de identarlo
 vnoremap < <gv
 vnoremap > >gv
+nnoremap > <c-w>>
+nnoremap < <c-w><
 
 " Selecciona la linea actual sin seleccionar la identación.
 nnoremap vv ^vg_
@@ -271,7 +273,7 @@ nnoremap N Nzzzv
 " NERDTree ---------------------------------------------------------------- {{{
 
 " No mostrar archivos con estas terminaciones.
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '__pycache__']
 
 let NERDTreeHighlightCursorline = 1
 
@@ -334,16 +336,16 @@ let g:pymode_lint = 1
 " don't show lint result every time we save a file
 let g:pymode_lint_on_write = 1
 " rules to ignore (example: "E501,W293")
-let g:pymode_lint_ignore = "E501,C0111"
+let g:pymode_lint_ignore = "E501,C0111,E265,E116"
 " don't add extra column for error icons (on console vim creates a 2-char-wide
 " extra column)
 let g:pymode_lint_signs = 1
 " don't fold python code on open
 let g:pymode_folding = 0
 " don't load rope by default. Change to 1 to use rope
-"let g:pymode_rope = 1
-"let g:pymode_rope_autoimport = 1
-"let g:pymode_rope_complete_on_dot = 1
+"let g:pymode_rope = 0
+"let g:pymode_rope_autoimport = 0
+"let g:pymode_rope_complete_on_dot = 0
 " open definitions on same window, and with my custom mapping
 let g:pymode_rope_goto_definition_bind = 'gd'
 let g:pymode_rope_goto_definition_cmd = 'e'
