@@ -66,6 +66,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 
 " Temas de colores
+Bundle 'morhetz/gruvbox'
 Bundle 'sickill/vim-monokai'
 Bundle 'altercation/vim-colors-solarized'
 
@@ -85,10 +86,10 @@ filetype plugin indent on
 
 " Color ------------------------------------------------------------------- {{{
 syntax on
-set background=light
+set background=dark
 if &term =~? 'mlterm\|xterm\|screen-256'
     let &t_Co = 256
-    colorscheme monokai
+    colorscheme gruvbox
 else
     colorscheme solarized
 endif
@@ -168,7 +169,7 @@ autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2 expand
 autocmd FileType make setlocal softtabstop=8 shiftwidth=8 tabstop=8 noexpandtab
 
 " }}}
-"
+
 " Remapeo de teclas ------------------------------------------------------- {{{
 
 let mapleader=","
@@ -333,17 +334,18 @@ nmap gd <c-w><c-]>
 " Python Mode ------------------------------------------------------------ {{{
 " Disable lint check.
 let g:pymode_lint = 1
-" don't show lint result every time we save a file
+" Documentation
+let g:pymode_doc = 1
+
+let g:pymode_lint_checker = "pyflakes,pep8"
 let g:pymode_lint_on_write = 1
-" rules to ignore (example: "E501,W293")
 let g:pymode_lint_ignore = "E501,C0111,E265,E116"
-" don't add extra column for error icons (on console vim creates a 2-char-wide
-" extra column)
+
 let g:pymode_lint_signs = 1
-" don't fold python code on open
+
 let g:pymode_folding = 0
-" don't load rope by default. Change to 1 to use rope
-"let g:pymode_rope = 0
+
+let g:pymode_rope = 1
 "let g:pymode_rope_autoimport = 0
 "let g:pymode_rope_complete_on_dot = 0
 " open definitions on same window, and with my custom mapping
@@ -352,6 +354,11 @@ let g:pymode_rope_goto_definition_cmd = 'e'
 let g:pymode_breakpoint_bind = '<leader>B'
 " Virtualenv detection
 let g:pymode_virtualenv = 1
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " }}}
 " Syntastic -------------------------------------------------------------- {{{
 "let g:syntastic_python_checkers = ['pylint']
