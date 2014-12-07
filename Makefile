@@ -1,14 +1,10 @@
-install: install-vim install-bash install-git
+install: install-vim install-git
 
 install-vim:
 	rm -rf ~/.vim ~/.vimrc
 	mkdir ~/.vim
 	ln -s `pwd`/vim/vimrc ~/.vimrc
 	ln -s `pwd`/vim/snippets ~/.vim/snippets
-
-install-bash:
-	rm -f ~/.git_svn_bash_prompt
-	ln -s `pwd`/bash/git_svn_bash_profile ~/.git_svn_bash_prompt
 
 install-git:
 	rm -f ~/.gitconfig
