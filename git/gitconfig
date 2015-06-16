@@ -1,6 +1,7 @@
 [user]
 name = Quique Porta
-email = quiqueporta@gmail.com
+;email = quiqueporta@gmail.com
+email = eporta@develapps.com
 [core]
 editor = vim
 excludefiles = ~/.gitignore_global

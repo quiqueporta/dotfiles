@@ -29,45 +29,32 @@ Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 
 " Powerline mejorada
-Bundle 'Lokaltog/powerline', { 'rtp': 'powerline/bindings/vim' }
+Bundle 'bling/vim-airline'
 
-" Fuzzy Finder - Buscar archivos
-Bundle 'kien/ctrlp.vim'
+" Autocompletion
+Bundle 'davidhalter/jedi-vim'
+Bundle 'AutoComplPop'
 
 " Commenter - Permite comentar las líneas de código
 Bundle 'scrooloose/nerdcommenter'
 
-" Surround
-Bundle 'tpope/vim-surround'
+" Syntax
+Bundle 'scrooloose/syntastic'
 
-" Autoclose - Cierra automaticamente los caracteres
-Bundle 'Townk/vim-autoclose'
-
-" Syntax checking
-"Bundle 'scrooloose/syntastic'
-
-" Tagbar - Ventana para mostrar la estructura de la Clase o Modulo
-Bundle 'majutsushi/tagbar'
-
-" Multiple cursors
-Bundle 'terryma/vim-multiple-cursors'
-
-" Python
-Bundle 'klen/python-mode'
+" Fuzzy Finder - Buscar archivos
+Bundle 'kien/ctrlp.vim'
 
 " Vim-easymotion - Permite desplazarse por el documento más rapido.
 Bundle 'Lokaltog/vim-easymotion'
 
-" Autocompletado mejorado
-Bundle 'AutoComplPop'
+" Surround
+Bundle 'tpope/vim-surround'
 
-"Snippets
+" Snippets
 Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
 
 " Temas de colores
 Bundle 'morhetz/gruvbox'
-Bundle 'sickill/vim-monokai'
 Bundle 'altercation/vim-colors-solarized'
 
 " }}}
@@ -93,16 +80,17 @@ if &term =~? 'mlterm\|xterm\|screen-256'
 else
     colorscheme solarized
 endif
+
 " }}}
 
 " Opciones basica --------------------------------------------------------- {{{
 set encoding=utf-8
 
 set ruler
-set relativenumber
+set number
 set laststatus=2
 set noshowmode
-set colorcolumn=80
+set colorcolumn=120
 
 " Mejorando el Wildmenu
 set wildmenu
@@ -112,12 +100,6 @@ set wildmode=list:longest
 set nobackup
 set nowritebackup
 set noswapfile
-
-" Busquedas
-set ignorecase
-set smartcase
-set incsearch
-set hlsearch
 
 " Mostrar caracteres como espacios, tabs, etc...
 set list
@@ -146,11 +128,6 @@ augroup cline
     au WinEnter,InsertLeave * set cursorline
 augroup END
 
-" Autocompletado
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " }}}
 
@@ -195,14 +172,6 @@ inoremap <F3> <esc>:NERDTreeToggle<cr>
 
 " Encuentra un archivo abierto en el NERDTree
 noremap <F4> :NERDTreeFind<CR>
-
-" Abre o cierra el Tagbar
-map <F5> :TagbarToggle<CR>
-
-" Muestra los registros,
-nnoremap <F11> <esc>:registers<cr>
-inoremap <F11> <esc>:registers<cr>
-vnoremap <F11> <esc>:registers<cr>
 
 " <ESC>
 inoremap kj <esc>l
@@ -250,17 +219,14 @@ noremap <TAB><TAB> <C-w><C-w>
 cmap w!! %!sudo tee > /dev/null %
 
 " Limpiar busquedas
-noremap <silent><Leader>/ :nohls<CR>
-
-" Mantener en el medio la busqueda.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+noremap <silent><space> :nohls<CR>
 
 " }}}
 
 " Busqueda ---------------------------------------------------------------- {{{
 set incsearch
 set ignorecase
+set smartcase
 set hlsearch
 set scrolloff=10
 
@@ -289,8 +255,8 @@ function! CtrlPWithSearchText(search_text, ctrlp_command_end)
     execute ':CtrlP' . a:ctrlp_command_end
     call feedkeys(a:search_text)
 endfunction
-"" Busqueda de palabras
-"" Busca la palabra en el buffer
+        "" Busqueda de palabras
+" Busca la palabra en el buffer
 noremap <leader>wb :call CtrlPWithSearchText(expand('<cword>'), 'Buffer')<CR>
 "" Busca la palabra en el Archivo
 noremap <leader>wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
@@ -312,58 +278,12 @@ let ctrlp_filter_greps = "".
             \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
             \ ")'"
 " }}}
-" Tagbar ------------------------------------------------------------------ {{{
-let g:tagbar_autofocus = 1
-let g:tagbar_compact = 1
-let g:tagbar_foldlevel = 0
+" Jedi-vim ---------------------------------------------------------------- {{{
+let g:jedi#use_tabs_not_buffers = 0
 " }}}
-" Multi Cursor ------------------------------------------------------------ {{{
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
+" Syntastic --------------------------------------------------------------- {{{
 " }}}
-" Autocompletion----------------------------------------------------------- {{{
-" Cerrado automatico del Autocompletions
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-highlight Pmenu ctermbg=4 guibg=LightGray
-" Abrir el autocompletado
-imap <C-J> <C-X><C-O>
-" Ir a la definición de una clase, metodo, etc..
-nmap gd <c-w><c-]>
-" }}}
-" Python Mode ------------------------------------------------------------ {{{
-" Disable lint check.
-let g:pymode_lint = 1
-" Documentation
-let g:pymode_doc = 1
-
-let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_on_write = 1
-let g:pymode_lint_ignore = "E501,C0111,E265,E116"
-
-let g:pymode_lint_signs = 1
-
-let g:pymode_folding = 0
-
-let g:pymode_rope = 1
-"let g:pymode_rope_autoimport = 0
-"let g:pymode_rope_complete_on_dot = 0
-" open definitions on same window, and with my custom mapping
-let g:pymode_rope_goto_definition_bind = 'gd'
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_breakpoint_bind = '<leader>B'
-" Virtualenv detection
-let g:pymode_virtualenv = 1
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-" }}}
-" Syntastic -------------------------------------------------------------- {{{
-"let g:syntastic_python_checkers = ['pylint']
-"let g:syntastic_python_checker_args='asas-d C0111,E501'
-" }}}
+let g:syntastic_python_flake8_post_args='--ignore=E501'
 " }}}
 
 " Folding ----------------------------------------------------------------- {{{
@@ -388,4 +308,3 @@ au BufWritePre *.py :%s/\s\+$//e
 au BufWritePre *.js :%s/\s\+$//e
 au BufWritePre *.* :%s/\s\+$//e
 " }}}
-
