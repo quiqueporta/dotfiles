@@ -52,6 +52,7 @@ Bundle 'tpope/vim-surround'
 
 " Snippets
 Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
 
 " Temas de colores
 Bundle 'morhetz/gruvbox'
@@ -76,6 +77,8 @@ syntax on
 set background=dark
 if &term =~? 'mlterm\|xterm\|screen-256'
     let &t_Co = 256
+    "set background=light
+    "let solarized_termcolors=256
     colorscheme gruvbox
 else
     colorscheme solarized
@@ -280,10 +283,12 @@ let ctrlp_filter_greps = "".
 " }}}
 " Jedi-vim ---------------------------------------------------------------- {{{
 let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#show_call_signatures = 2
+
 " }}}
 " Syntastic --------------------------------------------------------------- {{{
+let g:syntastic_python_flake8_post_args='--ignore=E501,D100,D101,D102,D103'
 " }}}
-let g:syntastic_python_flake8_post_args='--ignore=E501'
 " }}}
 
 " Folding ----------------------------------------------------------------- {{{
