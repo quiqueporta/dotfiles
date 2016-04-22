@@ -74,15 +74,13 @@ filetype plugin indent on
 
 " Color ------------------------------------------------------------------- {{{
 syntax on
+"set background=dark
+
+let &t_Co = 256
 set background=dark
-if &term =~? 'mlterm\|xterm\|screen-256'
-    let &t_Co = 256
-    "set background=light
-    "let solarized_termcolors=256
-    colorscheme gruvbox
-else
-    colorscheme solarized
-endif
+let solarized_termcolors=256
+"colorscheme solarized
+colorscheme gruvbox
 
 " }}}
 
@@ -93,7 +91,7 @@ set ruler
 set number
 set laststatus=2
 set noshowmode
-set colorcolumn=120
+set colorcolumn=80
 
 " Mejorando el Wildmenu
 set wildmenu
@@ -105,8 +103,8 @@ set nowritebackup
 set noswapfile
 
 " Mostrar caracteres como espacios, tabs, etc...
+set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅,eol:¬
 set list
-set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅
 set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
 
 set splitbelow " Ventana nueva abajo
@@ -142,6 +140,7 @@ set softtabstop=4
 set expandtab
 set formatoptions=qrn1j
 
+autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
 autocmd FileType html setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
 autocmd FileType python setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
 autocmd FileType css setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
@@ -284,10 +283,18 @@ let ctrlp_filter_greps = "".
 " Jedi-vim ---------------------------------------------------------------- {{{
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures = 2
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#auto_close_doc = 1
 
 " }}}
 " Syntastic --------------------------------------------------------------- {{{
-let g:syntastic_python_flake8_post_args='--ignore=E501,D100,D101,D102,D103'
+"let g:syntastic_python_flake8_post_args='--ignore=E501,D100,D101,D102,D103'
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_python_pylint_post_args='--disable=C0301,C0111'
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 " }}}
 " }}}
 
@@ -298,6 +305,7 @@ augroup ft_vim
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 augroup END
+
 " }}}
 
 " Misc ----------------------------------------------------------------- {{{
