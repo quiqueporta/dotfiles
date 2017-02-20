@@ -1,10 +1,11 @@
 [user]
-	name = Quique Porta
-    email = quiqueporta@gmail.com
+name = Quique Porta
+email = quiqueporta@gmail.com
 [core]
 editor = vim
 excludefiles = ~/.gitignore_global
 autocrlf = input
+excludesfile = ~/.gitignore_global
 [color]
 ui = always
 [merge]
@@ -18,4 +19,4 @@ br = branch
 up = rebase
 ci = commit
 hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-yesterday = log --since 1.day.ago --decorate --oneline --author 'Quique Porta'
+yesterday = log --since 1.day.ago --decorate --oneline --author Porta

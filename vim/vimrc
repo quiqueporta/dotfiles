@@ -50,12 +50,15 @@ Bundle 'Lokaltog/vim-easymotion'
 " Surround
 Bundle 'tpope/vim-surround'
 
-" Snippets
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+" Docker
+Plugin 'ekalinin/Dockerfile.vim'
+
+" Git
+Bundle 'airblade/vim-gitgutter'
 
 " Temas de colores
 Bundle 'morhetz/gruvbox'
+Bundle 'sickill/vim-monokai'
 Bundle 'altercation/vim-colors-solarized'
 
 " }}}
@@ -73,10 +76,9 @@ filetype plugin indent on
 " }}}
 
 " Color ------------------------------------------------------------------- {{{
-syntax on
-"set background=dark
+syntax enable
 
-let &t_Co = 256
+let &t_Co=256
 set background=dark
 let solarized_termcolors=256
 "colorscheme solarized
@@ -91,7 +93,7 @@ set ruler
 set number
 set laststatus=2
 set noshowmode
-set colorcolumn=80
+set colorcolumn=100
 
 " Mejorando el Wildmenu
 set wildmenu
@@ -103,7 +105,7 @@ set nowritebackup
 set noswapfile
 
 " Mostrar caracteres como espacios, tabs, etc...
-set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:⋅,eol:¬
+set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:·,eol:¬
 set list
 set lisp " Para que en el autocompletado me aparezcan las palabras con '-'.
 
