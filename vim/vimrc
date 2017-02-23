@@ -50,11 +50,8 @@ Bundle 'Lokaltog/vim-easymotion'
 " Surround
 Bundle 'tpope/vim-surround'
 
-" Docker
-Plugin 'ekalinin/Dockerfile.vim'
-
 " Git
-Bundle 'airblade/vim-gitgutter'
+Bundle 'tpope/vim-fugitive'
 
 " Temas de colores
 Bundle 'morhetz/gruvbox'
