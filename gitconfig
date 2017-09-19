@@ -1,0 +1,20 @@
+[user]
+	name = Quique Porta
+	email = quiqueporta@gmail.com
+[core]
+	editor = nvim
+[color]
+	ui = true
+[merge]
+	tool = meld
+[mergetool]
+	prompt = no
+[push]
+	default = simple
+[alias]
+  st = status
+  co = checkout
+  br = branch
+  ci = commit
+[diff]
+	tool = meld
