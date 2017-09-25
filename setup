@@ -33,6 +33,8 @@ function install_or_upgrade_prezto {
 	ln -sf $PWD/zsh/zshrc ~/.zshrc
 	echo "Creating symlink to ~/.zpreztorc"
 	ln -sf $PWD/zsh/zpreztorc ~/.zpreztorc
+  echo "Creating symlink to $zprezto_dir/modules/prompt/functions/prompt_quiqueporta_setup"
+  ln -sf $PWD/zsh/prompt_quiqueporta_setup $zprezto_dir/modules/prompt/functions/prompt_quiqueporta_setup
 	echo "Creating symlink to $zprezto_dir/modules/base16"
 	ln -sTf $PWD/zsh/modules/base16 $zprezto_dir/modules/base16
 }
