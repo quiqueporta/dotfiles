@@ -3,11 +3,11 @@ call plug#begin()
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
+Plug 'wincent/terminus'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 
-Plug 'davidhalter/jedi-vim'
 Plug 'vim-scripts/AutoComplPop'
 
 Plug 'scrooloose/nerdcommenter'
@@ -15,24 +15,28 @@ Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 
 Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
 
 Plug 'editorconfig/editorconfig-vim'
 
 " Search with ack
 Plug 'wincent/ferret', { 'on': ['Ack', 'Acks'] }
 
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dispatch'
 
 Plug 'janko-m/vim-test', { 'for': ['ruby', 'python', 'javascript'] }
 
-if has('nvim')
-  Plug 'neomake/neomake'
-else
-  Plug 'scrooloose/syntastic'
-endif
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'pearofducks/ansible-vim', { 'for': 'ansible' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'posva/vim-vue', { 'for': 'vue' }
+
+Plug 'scrooloose/syntastic'
 
 call plug#end()
 
@@ -41,7 +45,7 @@ let mapleader=","
 set encoding=utf-8
 
 set ruler
-set relativenumber
+set number
 set colorcolumn=100
 
 set wildmenu
@@ -63,19 +67,6 @@ set completeopt=longest,menuone,preview
 set omnifunc=syntaxcomplete#Complete
 
 set mouse=a
-
-set tabstop=4
-set expandtab
-set shiftwidth=4
-set softtabstop=4
-set formatoptions=qrn1j
-
-autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
-autocmd FileType html setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
-autocmd FileType python setlocal softtabstop=4 shiftwidth=4 tabstop=4 expandtab
-autocmd FileType css setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
-autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
-autocmd FileType make setlocal softtabstop=8 shiftwidth=8 tabstop=8 noexpandtab
 
 au VimResized *:wincmd = " Redimensionar los splits al rediucir la ventana.
 
@@ -134,12 +125,6 @@ nnoremap < <c-w><
 " Selecciona la linea actual sin seleccionar la identación.
 nnoremap vv ^vg_
 
-" Que el vat seleccione desde el incio al fin de lineas.
-nnoremap vat vato0o$
-
-" Seleccionar todo el documento.
-nnoremap <leader>a ggVG
-
 cmap w!! %!sudo terr > /dev/null %
 
 noremap <silent><space> :nohls<cr>
@@ -170,26 +155,10 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 
-if has('nvim')
-  autocmd! BufWritePost,BufEnter * Neomake
-endif
-
-if has('nvim')
-  let test#strategy = 'neovim'
-else
-  let test#strategy = 'dispatch'
-end
-
-let g:neomake_python_flake8_maker = { 'args': ['--ignore=E501,W391,F405'], }
-
 let g:ctrlp_map= '<leader>e'
 noremap <leader>b :CtrlPBuffer<cr>
 noremap <leader>f :CtrlPLine<cr>
 noremap <leader>m :CtrlPMRUFiles<cr>
-
-let g:jedi#use_tabs_not_buffers = 1
-let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#show_call_signatures = "0"
 
 let g:syntastic_python_checkers = ['flake8']
 "let g:syntastic_python_pylint_post_args='--disable=C0301,C0111'
@@ -198,3 +167,17 @@ let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+let test#strategy = 'dispatch'
+nmap <silent> <leader>rt :TestNearest --keepdb<CR>
+nmap <silent> <leader>rT :TestFile --keepdb<CR>
+nmap <silent> <leader>ra :TestSuite --keepdb<CR>
+nmap <silent> <leader>rl :TestLast<CR>
+nmap <silent> <leader>rg :TestVisit<CR>
+
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#use_splits_not_buffers = "right"
+
+let g:tagbar_compact = 1
+let g:tagbar_sort = 0
+nmap <leader>t :TagbarToggle<CR>
