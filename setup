@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 function create_symlinks {
-	symlinks=(vimrc gitconfig tmux.conf agignore editorconfig)
+	symlinks=(vimrc gitconfig tmux.conf editorconfig)
 	for symlink in $symlinks; do
 		echo "Creating symlink to ~/.$symlink"
 		ln -sf $PWD/$symlink ~/.$symlink
@@ -25,33 +25,9 @@ function configure_vim {
 	vim -c "PlugUpdate!" -c ":q!" -c ":q!"
 }
 
-function install_or_upgrade_prezto {
-	zprezto_dir=~/.zprezto
-	clone_or_upgrade_repository https://github.com/sorin-ionescu/prezto.git $zprezto_dir
-	create_prezto_symlinks
+function configure_zsh {
 	echo "Creating symlink to ~/.zshrc"
 	ln -sf $PWD/zsh/zshrc ~/.zshrc
-	echo "Creating symlink to ~/.zpreztorc"
-	ln -sf $PWD/zsh/zpreztorc ~/.zpreztorc
-  echo "Creating symlink to $zprezto_dir/modules/prompt/functions/prompt_quiqueporta_setup"
-  ln -sf $PWD/zsh/prompt_quiqueporta_setup $zprezto_dir/modules/prompt/functions/prompt_quiqueporta_setup
-	echo "Creating symlink to $zprezto_dir/modules/base16"
-	ln -sTf $PWD/zsh/modules/base16 $zprezto_dir/modules/base16
-}
-
-function create_prezto_symlinks {
-	setopt EXTENDED_GLOB
-	for rcfile in ~/.zprezto/runcoms/^README.md(.N); do
-		ln -sf $rcfile ~/.${rcfile:t}
-	done
-}
-
-function configure_neovim {
-	mkdir -p ~/.config/nvim
-	ln -sf $PWD/vimrc ~/.config/nvim/init.vim
-
-	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	nvim -c "PlugUpdate!" -c ":q!" -c ":q!"
 }
 
 function configure_base16 {
@@ -61,5 +37,4 @@ function configure_base16 {
 create_symlinks
 configure_base16
 configure_vim
-install_or_upgrade_prezto
-configure_neovim
+configure_zsh

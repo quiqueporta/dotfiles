@@ -1,0 +1,55 @@
+snippet class "class MyClass: (with init)"
+class ${1:MyClass}:
+
+    def __init__(self):
+        ${2:pass}
+$0
+endsnippet
+
+snippet . "self."
+self.$0
+endsnippet
+
+snippet ipdb "ipdb"
+import ipdb
+ipdb.set_trace()
+endsnippet
+
+snippet def "def method(self, params)"
+def ${1:method_name}(self, ${2:params}):
+    ${3:pass}
+$0
+endsnippet
+
+snippet defp "def __method(self, params)"
+def __${1:method_name}(self, ${2:params}):
+    ${3:pass}
+$0
+endsnippet
+
+snippet defs "def method(params)"
+@staticmethod
+def ${1:method_name}(${2:params}):
+    ${3:pass}
+$0
+endsnippet
+
+snippet prop "@property"
+@property
+def ${1:proterty_name}(self):
+    return self.${3:value}
+$0
+endsnippet
+
+snippet try "try..except"
+try:
+    ${1:code}
+except ${2:Exception} as ex:
+    ${3:code}
+$0
+endsnippet
+
+snippet ret "return"
+return ${1:value}$0
+endsnippet
+
