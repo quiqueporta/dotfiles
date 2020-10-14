@@ -72,6 +72,10 @@ Plug 'scrooloose/syntastic'
 
 " Run tests
 Plug 'janko-m/vim-test', { 'for': ['python'] }
+Plug 'tpope/vim-dispatch' " asynchronous
+
+" Note
+Plug 'xolox/vim-notes'
 
 call plug#end()
 
@@ -211,7 +215,7 @@ vnoremap <leader>s <esc>:w<CR>
 nnoremap tn :tabn<CR>
 nnoremap tp :tabp<CR>
 nnoremap tm :tabm<CR>
-nnoremap tt :tabnew<CR>
+nnoremap tt :$tabnew<CR>
 
 " move text lines and blocks
 nnoremap <C-j> :m .+1<CR>==
@@ -267,7 +271,7 @@ autocmd BufWritePre *.py :%s/\s\+$//e
 
 " ???
 set complete=.,w,b,u,t
-set completeopt=longest,menuone,preview
+set completeopt=longest,menuone " Use the popup menu also when there is only one match.
 set completeopt-=preview   " Hide the documentation preview window
 set omnifunc=syntaxcomplete#Complete
 
@@ -368,5 +372,7 @@ nmap <silent> <leader>ra :TestSuite
 nmap <silent> <leader>rl :TestLast
 nmap <silent> <leader>rg :TestVisit
 
-" AutoComplPop --------------------------
-let g:acp_completeOption = '.,w,b,u,t,i'
+" Vim notes -----------------------------
+
+let g:notes_directories = ['~/Documents/Notes']
+let g:notes_suffix = '.txt'
