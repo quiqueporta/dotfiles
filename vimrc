@@ -76,6 +76,10 @@ Plug 'tpope/vim-dispatch' " asynchronous
 
 " Note
 Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc' " needed for vim-notes
+
+" Code snippets
+Plug 'SirVer/ultisnips'
 
 call plug#end()
 
@@ -263,9 +267,6 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" add python breakpoints
-au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
-
 " clear empty spaces at the end of lines on save of python files
 autocmd BufWritePre *.py :%s/\s\+$//e
 
@@ -315,6 +316,7 @@ nnoremap <leader>e :GFiles<CR>
 nnoremap <leader>l :Lines<CR>
 nnoremap <leader>m :History<CR>
 nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>W :Windows<CR>
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, {'options': ['--preview', '--info=inline']}, <bang>0)
 
@@ -330,7 +332,7 @@ autocmd BufWritePre *.py Isort
 
 " Syntastic ----------------------------
 
-let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers = ['flake8', 'mypy']
 let g:syntastic_python_flake8_post_args='--ignore=E501,D100,D101,D102,D103'
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
@@ -366,13 +368,19 @@ let g:jedi#goto_assignments_command = '<leader>a'
 " run tests in a vim8 terminal
 let g:test#strategy = "vimterminal"
 
-nmap <silent> <leader>rt :TestNearest
-nmap <silent> <leader>rT :TestFile
-nmap <silent> <leader>ra :TestSuite
-nmap <silent> <leader>rl :TestLast
-nmap <silent> <leader>rg :TestVisit
+nmap <silent> <leader>rt :TestNearest<CR>
+nmap <silent> <leader>rT :TestFile<CR>
+nmap <silent> <leader>ra :TestSuite<CR>
+nmap <silent> <leader>rl :TestLast<CR>
+nmap <silent> <leader>rg :TestVisit<CR>
 
 " Vim notes -----------------------------
 
 let g:notes_directories = ['~/Documents/Notes']
 let g:notes_suffix = '.txt'
+
+" Ultinips ------------------------------
+
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical" " If you want :UltiSnipsEdit to split your window.
