@@ -64,9 +64,6 @@ Plug 'tpope/vim-surround'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'vim-scripts/AutoComplPop'
 
-" Automatically sort python imports
-Plug 'fisadev/vim-isort'
-
 " Syntactic analysis
 Plug 'scrooloose/syntastic'
 
@@ -325,10 +322,6 @@ cnoreabbrev Ack Ack!
 nnoremap <Leader>w :Ack! --py --ignore migrations --ignore tests<space>
 let g:ackprg = "ag --vimgrep"
 let g:ackhighlight = 1
-
-" Isort ---------------------------------
-
-autocmd BufWritePre *.py Isort
 
 " Syntastic ----------------------------
 
