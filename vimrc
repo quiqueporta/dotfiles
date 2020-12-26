@@ -20,9 +20,19 @@ endif
 
 call plug#begin("~/.vim/plugged")
 
-" Override configs by directory.
-" Create a .vim.custom file in the directory you want to customize.
-Plug 'arielrossanigo/dir-configs-override.vim'
+" Autocompletion
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'vim-scripts/AutoComplPop'
+
+" Syntactic analysis
+Plug 'scrooloose/syntastic'
+
+" Run tests
+Plug 'janko-m/vim-test', { 'for': ['python'] }
+Plug 'tpope/vim-dispatch' " asynchronous
+
+" Code snippets
+Plug 'SirVer/ultisnips'
 
 " File browser
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -60,23 +70,13 @@ Plug 'airblade/vim-gitgutter'
 " Surround
 Plug 'tpope/vim-surround'
 
-" Autocompletion
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'vim-scripts/AutoComplPop'
-
-" Syntactic analysis
-Plug 'scrooloose/syntastic'
-
-" Run tests
-Plug 'janko-m/vim-test', { 'for': ['python'] }
-Plug 'tpope/vim-dispatch' " asynchronous
-
 " Note
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc' " needed for vim-notes
 
-" Code snippets
-Plug 'SirVer/ultisnips'
+" Override configs by directory.
+" Create a .vim.custom file in the directory you want to customize.
+Plug 'arielrossanigo/dir-configs-override.vim'
 
 call plug#end()
 
@@ -95,9 +95,6 @@ filetype indent on
 
 " always show status bar
 set ls=2
-
-" incremental search
-set incsearch
 
 " highlighted search results
 set hlsearch
@@ -215,7 +212,6 @@ vnoremap <leader>s <esc>:w<CR>
 " tab navigation mappings
 nnoremap tn :tabn<CR>
 nnoremap tp :tabp<CR>
-nnoremap tm :tabm<CR>
 nnoremap tt :$tabnew<CR>
 
 " move text lines and blocks
@@ -319,7 +315,7 @@ command! -bang -nargs=? -complete=dir Files
 
 " Ack ----------------------------------
 cnoreabbrev Ack Ack!
-nnoremap <Leader>w :Ack! --py --ignore migrations --ignore tests<space>
+nnoremap <Leader>w :Ack! --py<space>
 let g:ackprg = "ag --vimgrep"
 let g:ackhighlight = 1
 
