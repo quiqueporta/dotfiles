@@ -103,6 +103,7 @@ set hlsearch
 syntax on
 
 " swap, backup and undo files
+set noswapfile
 set directory=~/.vim/dirs/tmp     " folder for swap files
 set backup                        " make backup files
 set backupdir=~/.vim/dirs/backups " folder for backup files
