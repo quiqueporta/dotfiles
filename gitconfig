@@ -20,6 +20,7 @@
   prev = checkout HEAD^1
   next = "!sh -c 'git log --reverse --pretty=%H master | awk \"/$(git rev-parse HEAD)/{getline;print}\" | xargs git checkout'"
   cleanbr = "!sh -c 'git for-each-ref --format \"%(refname:short)\" refs/heads | grep -v master | xargs git branch -D'"
+  cleanremote = fetch --prune origin
   logbonico = log --oneline --all --graph --decorate
 [diff]
 	tool = meld

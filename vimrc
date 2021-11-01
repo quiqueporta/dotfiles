@@ -38,7 +38,7 @@ Plug 'SirVer/ultisnips'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Change cursor in Insert and Replace
-Plug 'wincent/terminus' 
+Plug 'wincent/terminus'
 
 " Airline
 Plug 'vim-airline/vim-airline'
@@ -46,9 +46,16 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Color scheme
 Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 
 " Code commenter
 Plug 'scrooloose/nerdcommenter'
+
+" Ember JS
+Plug 'mustache/vim-mustache-handlebars'
+
+" JS
+Plug 'pangloss/vim-javascript'
 
 " Better motion
 Plug 'easymotion/vim-easymotion'
@@ -77,6 +84,9 @@ Plug 'xolox/vim-misc' " needed for vim-notes
 " Override configs by directory.
 " Create a .vim.custom file in the directory you want to customize.
 Plug 'arielrossanigo/dir-configs-override.vim'
+
+" Scratch files
+Plug 'vim-scripts/scratch.vim'
 
 call plug#end()
 
@@ -107,8 +117,6 @@ set noswapfile
 set directory=~/.vim/dirs/tmp     " folder for swap files
 set backup                        " make backup files
 set backupdir=~/.vim/dirs/backups " folder for backup files
-set undofile                      " persistent undos - undo after you re-open the file
-set undodir=~/.vim/dirs/undos
 set viminfo+=n~/.vim/dirs/viminfo " if you exit vim and later start, vim remembers information like, command line history, search history, marks, etc ...
 
 " create needed directories if they don't exist
@@ -128,10 +136,33 @@ set tabstop=4 " tell vim how many columns a tab counts for
 set softtabstop=4 " control how many columns vim uses when you hit Tab in insert mode
 set shiftwidth=4 " control how many columns text is indented with the reindent operations (<< and >>)
 
+augroup javascript_files
+    autocmd!
+    autocmd FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab textwidth=99
+augroup END
+
+augroup html_files
+    autocmd!
+    autocmd FileType html setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab textwidth=99
+augroup END
+
+augroup html_handlebars
+    autocmd!
+    autocmd FileType html.handlebars setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab textwidth=99
+augroup END
+
+augroup css_files
+    autocmd!
+    autocmd FileType css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab textwidth=99
+    autocmd FileType scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab textwidth=99
+augroup END
+
+
 
 " show
 set ruler " show the line and column number of the cursor position
-set number " precede each line with its line number
+"set number " precede each line with its line number
+set relativenumber " precede each line with its line relative number
 
 " show tabs, eol and spaces
 set list
@@ -139,7 +170,7 @@ set list
 set listchars=tab:▸\ ,eol:¬,trail:·
 
 " show rule in colum 100
-set colorcolumn=100
+set colorcolumn=99
 
 " how to split windows
 set splitbelow
@@ -151,16 +182,19 @@ au VimResized *:wincmd = " resize splits when windows are reduced
 set cursorline
 
 augroup cline
-  " delete any old autocommand
-  au! 
-  " remove cursor line on windows leave and when on insert mode
+  "" delete any old autocommand
+  au!
+  "" remove cursor line on windows leave and when on insert mode
   au WinLeave,InsertEnter * set nocursorline
-  " show cursor line on window enter or when exit from insert mode
+  "" show cursor line on window enter or when exit from insert mode
   au WinEnter,InsertLeave * set cursorline
 augroup END
 
 " use 256 colors when possible
-colorscheme base16-materia
+
+"colorscheme base16-monokai
+colorscheme gruvbox
+set background=dark
 set t_Co=256
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -181,9 +215,9 @@ set incsearch " incremental search
 set ignorecase " search is case insensitive but you can add \C to make it sensitive
 set smartcase " will automatically switch to a case-sensitive search if you use any capital letters
 
-" ============================== 
+" ==============================
 " mappings
-" ============================== 
+" ==============================
 
 " :map and :noremap are recursive and non-recursive
 
@@ -230,7 +264,7 @@ nnoremap > <c-w>>
 nnoremap < <c-w><
 
 " override next and previous search to show in the middle of the screen (zz)
-" and also open just enough folds (zv) to make the line in which the cursor 
+" and also open just enough folds (zv) to make the line in which the cursor
 " is located not folded.
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -261,8 +295,8 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" clear empty spaces at the end of lines on save of python files
-autocmd BufWritePre *.py :%s/\s\+$//e
+" clear empty spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 " ???
 set complete=.,w,b,u,t
@@ -342,7 +376,6 @@ nnoremap <leader>t :TagbarToggle<CR>
 " Jedi-vim ------------------------------
 
 let g:jedi#use_tabs_not_buffers = 1
-let g:jedi#use_splits_not_buffers = "right"
 
 " Rename
 let g:jedi#rename_command = '<leader>R'
@@ -374,3 +407,11 @@ let g:notes_suffix = '.txt'
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical" " If you want :UltiSnipsEdit to split your window.
+
+" Javascript ----------------------------
+
+let g:javascript_plugin_jsdoc = 1
+
+" Gitgutter -----------------------------
+set updatetime=100  " Reduce the time it detect changes
+
