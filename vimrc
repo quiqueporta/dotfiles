@@ -161,7 +161,7 @@ augroup END
 
 " show
 set ruler " show the line and column number of the cursor position
-"set number " precede each line with its line number
+set number " precede each line with its line number
 set relativenumber " precede each line with its line relative number
 
 " show tabs, eol and spaces
@@ -192,8 +192,8 @@ augroup END
 
 " use 256 colors when possible
 
-"colorscheme base16-monokai
-colorscheme gruvbox
+colorscheme base16-monokai
+"colorscheme gruvbox
 set background=dark
 set t_Co=256
 if exists('+termguicolors')
@@ -414,4 +414,3 @@ let g:javascript_plugin_jsdoc = 1
 
 " Gitgutter -----------------------------
 set updatetime=100  " Reduce the time it detect changes
-
